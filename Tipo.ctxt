@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Tipo
+comment1.params=otro
+comment1.target=double\ factorAtaque(Tipo)
+comment2.params=otro
+comment2.target=double\ factorAtaque(Tipo)
+comment3.params=otro
+comment3.target=double\ factorAtaque(Tipo)
+comment4.params=otro
+comment4.target=double\ factorAtaque(Tipo)
+comment5.params=otro
+comment5.target=double\ factorAtaque(Tipo)
+comment6.params=otro
+comment6.target=double\ factorAtaque(Tipo)
+comment7.params=criatura
+comment7.target=double\ factorAtaque(Criatura)
+numComments=8
