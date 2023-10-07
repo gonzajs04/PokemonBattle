@@ -1,17 +1,17 @@
 #BlueJ class context
-comment0.target=Pikachu
+comment0.target=Mewtwo
 comment1.params=nombre\ imagenEspejada
-comment1.target=Pikachu(java.lang.String,\ boolean)
+comment1.target=Mewtwo(java.lang.String,\ boolean)
 comment10.params=otro
 comment10.target=boolean\ puedeRealizarAtaque4En(Criatura)
 comment2.params=nombre
-comment2.target=Pikachu(java.lang.String)
-comment3.params=
-comment3.target=int\ getVelocidad()
+comment2.target=Mewtwo(java.lang.String)
+comment3.params=otro
+comment3.target=void\ atacar2(Criatura)
 comment4.params=
-comment4.target=int\ getDefensa()
-comment5.params=otro
-comment5.target=void\ atacar2(Criatura)
+comment4.target=int\ getVelocidad()
+comment5.params=
+comment5.target=int\ getDefensa()
 comment6.params=otro
 comment6.target=boolean\ puedeRealizarAtaque2En(Criatura)
 comment7.params=otro

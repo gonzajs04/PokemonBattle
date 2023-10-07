@@ -21,6 +21,8 @@ public abstract class Criatura extends Actor {
     private boolean visualSeleccionado;
 
     private final MyGreenfootImage imagenOriginal;
+    private int velocidad;
+    private int defensa;
 
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque) {
         this.nombre = nombre;
@@ -28,13 +30,14 @@ public abstract class Criatura extends Actor {
         this.nombresAtaque = nombresAtaque;
         this.detallesAtaque = detallesAtaque;
         this.vida = vida;
-
+   
         this.equipo1 = equipo1;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
         this.uiInfoCriatura = new UIInfoCriatura(this);
         System.out.println(Arrays.toString(nombresAtaque));
     }
+   
 
     @Override
     protected void addedToWorld(World world) {
@@ -72,6 +75,14 @@ public abstract class Criatura extends Actor {
         }
     }
 
+
+    
+    public void setDefensa(int defensa){
+        this.defensa = defensa;
+    }
+    public void setVelocidad(int velocidad){
+        this.velocidad = velocidad;
+    }
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
                 public void configurar() {
@@ -130,6 +141,13 @@ public abstract class Criatura extends Actor {
     public int getVidaMaxima() {
         return vidaMaxima;
     }
+    
+    public int getVelocidad(){
+        return this.velocidad;
+    }
+    public int getDefensa(){
+        return this.defensa;
+    }
 
     public boolean esEquipo1() {
         return equipo1;
@@ -153,10 +171,9 @@ public abstract class Criatura extends Actor {
     }
 
     public String getStats() {
-        return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
+         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
         " - Ataque: 0\n" +
-        " - Defensa: 0\n" +
-        " - Velocidad: 0\n"
-        ;
+        " - Defensa: " + getDefensa() + "\n" +
+        " - Velocidad: " + getVelocidad();
     }
 }

@@ -6,20 +6,26 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Snorlax extends Criatura
+public class Squirtle extends Criatura
 {
-    public Snorlax(String nombre, boolean imagenEspejada) {
-        super(nombre, 100, new String[] { "Placaje", "- Panzaso -", "- Fabian -", "- Piña -" }, imagenEspejada,
-                new String[] { "Causa un daño moderado a un enemigo", "Baja 5 de daño", "Te mata de un chivazo", "Baja 3 de daño" });
+      private int velocidad = 100;
+    private int defensa = 100;
+    public Squirtle(String nombre, boolean imagenEspejada) {
+        super(nombre, 100, new String[] { "Puño", "- Alivio -", "- Ataque burbuja -", "- Piña -" }, imagenEspejada,
+                new String[] { "Causa un daño moderado a un enemigo", "Quita la paralizacion del rival",
+                    "15 de daño y envuelve al rival en una burbuja que lo suspende por 1 turno", "Baja 3 de daño" });
+        super.setDefensa(this.defensa);
+        super.setVelocidad(this.velocidad);
     }
 
-    public Snorlax(String nombre) {
+    public Squirtle(String nombre) {
         this(nombre, false);
     }
 
     public void atacar2(Criatura otro) {
         atacar1(otro);
     }
+    
 
     public boolean puedeRealizarAtaque2En(Criatura otro) {
         return false;
