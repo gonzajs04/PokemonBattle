@@ -28,7 +28,7 @@ public class BotonReactor {
         	// Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
             uiAtaques.ataque = () -> {
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) {
-                    atacar(uiAtaques.ataqueObjetivo);
+                    atacarBoton(uiAtaques.ataqueObjetivo);
                     // pantallaDuelo.turno();
                 }
             };
@@ -61,20 +61,8 @@ public class BotonReactor {
 		return false;
     }
 
-    public void atacar(Criatura otro) {
-        switch (this.numeroAtaque) {
-		case 1:
-		    this.criaturaActual.atacar1(otro);
-		    break;
-		case 2:
-		    this.criaturaActual.atacar2(otro);
-		    break;
-		case 3:
-		    this.criaturaActual.atacar3(otro);
-		    break;
-		case 4:
-		    this.criaturaActual.atacar4(otro);
-		    break;
-		}
+    public void atacarBoton(Criatura otro) {
+        this.criaturaActual.atacarCriatura(otro);
+
     }
 }

@@ -1,4 +1,3 @@
-import java.util.List;
 import java.lang.*;
 import java.util.*;
  
@@ -102,15 +101,18 @@ public abstract class Criatura extends Actor {
         setImage(nuevaImagen);
     }
 
-    public void atacar1(Criatura otro) {
+    public void atacarCriatura(Criatura otro) {
         otro.recibirDaño(this);
     }
 
-    public abstract void atacar2(Criatura otro);
+       protected int recibirDaño(Criatura atacante) {
+        if(this.vida>0){
+            this.vida -= 5;
+            uiInfoCriatura.actualizar();
+            return 5;
+        } return 0;
+    }
 
-    public abstract void atacar3(Criatura otro);
-
-    public abstract void atacar4(Criatura otro);
 
     protected boolean esDelMismoEquipoQue(Criatura otro) {
         return this.equipo1 == otro.equipo1;
@@ -126,14 +128,7 @@ public abstract class Criatura extends Actor {
 
     public abstract boolean puedeRealizarAtaque4En(Criatura otro);
 
-    protected int recibirDaño(Criatura atacante) {
-        if(this.vida>0){
-            this.vida -= 5;
-            uiInfoCriatura.actualizar();
-            return 5;
-        } return 0;
-    }
-
+ 
     public int getVida() {
         return vida;
     }

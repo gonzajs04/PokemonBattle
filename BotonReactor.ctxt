@@ -11,5 +11,5 @@ comment4.target=java.lang.String\ getDetalleAtaque(Criatura)
 comment5.params=otro
 comment5.target=boolean\ puedeAtacarlo(Criatura)
 comment6.params=otro
-comment6.target=void\ atacar(Criatura)
+comment6.target=void\ atacarBoton(Criatura)
 numComments=7
