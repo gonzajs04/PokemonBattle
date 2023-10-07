@@ -37,6 +37,7 @@ public class Boton extends Actor {
         if (Greenfoot.mouseClicked(this)) {
             onClick.run();
         }
+
     }
     
     public void actualizar(BotonReactor onClick) {
