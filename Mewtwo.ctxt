@@ -16,4 +16,6 @@ comment7.params=otro
 comment7.target=boolean\ puedeRealizarAtaque3En(Criatura)
 comment8.params=otro
 comment8.target=boolean\ puedeRealizarAtaque4En(Criatura)
-numComments=9
+comment9.params=
+comment9.target=void\ crearAtaques()
+numComments=10

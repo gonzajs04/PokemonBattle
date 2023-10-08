@@ -14,7 +14,7 @@ public class Squirtle extends Criatura
     public Squirtle(String nombre, boolean imagenEspejada) {
         super(nombre, 100, new String[] { "Puño", "- Alivio -", "- Ataque burbuja -", "- Piña -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Quita la paralizacion del rival",
-                    "15 de daño y envuelve al rival en una burbuja que lo suspende por 1 turno", "Baja 3 de daño" });
+                    "15 de daño y envuelve al rival en una burbuja que lo suspende por 1 turno", "Baja 3 de daño" },4);
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);
