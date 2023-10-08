@@ -75,11 +75,7 @@ dependency8.type=UsesDependency
 dependency9.from=PantallaDuelo
 dependency9.to=Squirtle
 dependency9.type=UsesDependency
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
-height=1056
+
 package.numDependencies=24
 package.numTargets=16
 project.charset=UTF-8
@@ -209,7 +205,7 @@ target9.width=120
 target9.x=0
 target9.y=0
 version=3.0.0
-width=1936
+
 world.lastInstantiated=PantallaDuelo
 xPosition=0
 yPosition=0
