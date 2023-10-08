@@ -2,7 +2,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 
 public class Mewtwo extends Criatura
-{
+{   
+    private int ataque = 30;
     private int velocidad= 200;;
     private int defensa = 200; ;
     public Mewtwo(String nombre, boolean imagenEspejada) {
@@ -11,6 +12,8 @@ public class Mewtwo extends Criatura
                 "Quita entre 20-30 de daño con un 10% de golpe critico " });
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
+        super.setAtaqueAtributo(this.ataque);
+
                     
     }
 
