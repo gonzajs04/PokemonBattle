@@ -19,6 +19,8 @@ public abstract class Criatura extends Actor {
     private boolean visualHover;
     private boolean visualSeleccionado;
     private boolean estaDesmayado;
+    private boolean estaDesmayado2;
+    private boolean estaDesmayado3;
 
     private final MyGreenfootImage imagenOriginal;
     private int velocidad;
