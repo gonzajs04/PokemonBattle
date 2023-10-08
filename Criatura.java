@@ -169,7 +169,8 @@ public abstract class Criatura extends Actor {
 
     public String getStats() {
          return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
-        " - Ataque: 0\n" + this.ataqueAtributo +
+        " - Ataque: " + this.ataqueAtributo + "\n"+
+        
         " - Defensa: " + getDefensa() + "\n" +
         " - Velocidad: " + getVelocidad();
     }
