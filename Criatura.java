@@ -18,6 +18,7 @@ public abstract class Criatura extends Actor {
 
     private boolean visualHover;
     private boolean visualSeleccionado;
+    private boolean estaDesmayado;
 
     private final MyGreenfootImage imagenOriginal;
     private int velocidad;
@@ -30,7 +31,8 @@ public abstract class Criatura extends Actor {
         this.nombresAtaque = nombresAtaque;
         this.detallesAtaque = detallesAtaque;
         this.vida = vida;
-   
+        this.estaDesmayado = false;
+
         this.equipo1 = equipo1;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
@@ -84,6 +86,11 @@ public abstract class Criatura extends Actor {
     public void setAtaqueAtributo(int ataque){
         this.ataqueAtributo = ataque;
     }
+    public void setEstaDesmayado(Criatura nombre){
+        this.estaDesmayado = true;
+    
+    }
+    
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
                 public void configurar() {
@@ -104,7 +111,11 @@ public abstract class Criatura extends Actor {
     }
 
     public void atacarCriatura(Criatura otro) {
-        otro.recibirDaño(this);
+        if(otro.getVida() <= 0){
+            otro.setEstaDesmayado(this);
+        } else {
+            otro.recibirDaño(this);
+        }        
     }
 
        protected int recibirDaño(Criatura atacante) {
