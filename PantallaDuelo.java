@@ -30,7 +30,7 @@ public class PantallaDuelo extends World {
         criaturas[0] = new Pikachu("Pikachu");
         criaturas[1] = new Squirtle("Squirtle",false);
         criaturas[2] = new Charmander("Charmander", true);
-        criaturas[3] = new Mewtwo("Mewtwo", false);
+        criaturas[3] = new Mewtwo("Mewtwo", true);
         System.out.println(criaturas[0].getVelocidad());
         addObject(criaturas[0], 100, 80);
         addObject(criaturas[1], 240, 80);
