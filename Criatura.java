@@ -9,13 +9,13 @@ public abstract class Criatura extends Actor {
 
     protected final String[] nombresAtaque;
     protected final String[] detallesAtaque;
-
+    protected Ataque [] ataques;
     protected final boolean equipo1;
 
     protected int vida;
 
     private UIInfoCriatura uiInfoCriatura;
-
+    private int cantAtaques;
     private boolean visualHover;
     private boolean visualSeleccionado;
 
@@ -24,18 +24,18 @@ public abstract class Criatura extends Actor {
     private int defensa;
     private int ataqueAtributo;
 
-    public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque) {
+    public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,int cantAtaques) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
         this.detallesAtaque = detallesAtaque;
         this.vida = vida;
-   
+        this.cantAtaques = cantAtaques;
         this.equipo1 = equipo1;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
         this.uiInfoCriatura = new UIInfoCriatura(this);
-        System.out.println(Arrays.toString(nombresAtaque));
+        crearArrayDeAtaques();
     }
    
 
@@ -174,4 +174,11 @@ public abstract class Criatura extends Actor {
         " - Defensa: " + getDefensa() + "\n" +
         " - Velocidad: " + getVelocidad();
     }
+
+    public void crearArrayDeAtaques(){
+        ataques = new Ataque[this.cantAtaques];
+    }
+  
+
+   
 }

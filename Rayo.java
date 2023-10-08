@@ -2,8 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
  
 public class Rayo extends Ataque {
+        private int probabilidadParalizar = 90;
+
     public Rayo(){
-        super(100, "Electricidad",5);
+        super(0,10, "Electricidad",50);
     }
 }
 

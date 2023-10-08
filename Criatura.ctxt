@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Criatura
-comment1.params=nombre\ vida\ nombresAtaque\ equipo1\ detallesAtaque
-comment1.target=Criatura(java.lang.String,\ int,\ java.lang.String[],\ boolean,\ java.lang.String[])
+comment1.params=nombre\ vida\ nombresAtaque\ equipo1\ detallesAtaque\ cantAtaques
+comment1.target=Criatura(java.lang.String,\ int,\ java.lang.String[],\ boolean,\ java.lang.String[],\ int)
 comment10.params=atacante
 comment10.target=int\ recibirDa\u00F1o(Criatura)
 comment11.params=otro
@@ -36,6 +36,8 @@ comment24.params=
 comment24.target=java.lang.String[]\ getDetallesAtaque()
 comment25.params=
 comment25.target=java.lang.String\ getStats()
+comment26.params=
+comment26.target=void\ crearArrayDeAtaques()
 comment3.params=
 comment3.target=void\ act()
 comment4.params=defensa
@@ -50,4 +52,4 @@ comment8.params=
 comment8.target=void\ configurar()
 comment9.params=otro
 comment9.target=void\ atacarCriatura(Criatura)
-numComments=26
+numComments=27
