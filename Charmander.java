@@ -7,14 +7,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class Charmander extends Criatura{
-     private int velocidad = 300;
+    private int ataque = 10;
+    private int velocidad = 300;
     private int defensa = 100;
     public Charmander(String nombre, boolean imagenEspejada) {
         super(nombre, 100, new String[] { "Puño", "- Gruñido -", "- Chuchillada -", "- Ascuas -" }, imagenEspejada,
             new String[] { "Causa un daño moderado a un enemigo", "Baja un nivel el Ataque al rival",
             "Golpea con alta probalidadad de golpe critico", "Quema al rival. Reduce un 10% de la vida del rival" });
-         super.setDefensa(this.defensa);
+        super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
+        super.setAtaqueAtributo(this.ataque);
+
     }
 
     public Charmander(String nombre) {

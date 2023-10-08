@@ -22,6 +22,7 @@ public abstract class Criatura extends Actor {
     private final MyGreenfootImage imagenOriginal;
     private int velocidad;
     private int defensa;
+    private int ataqueAtributo;
 
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque) {
         this.nombre = nombre;
@@ -74,13 +75,14 @@ public abstract class Criatura extends Actor {
         }
     }
 
-
-    
     public void setDefensa(int defensa){
         this.defensa = defensa;
     }
     public void setVelocidad(int velocidad){
         this.velocidad = velocidad;
+    }
+    public void setAtaqueAtributo(int ataque){
+        this.ataqueAtributo = ataque;
     }
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
@@ -167,7 +169,7 @@ public abstract class Criatura extends Actor {
 
     public String getStats() {
          return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
-        " - Ataque: 0\n" +
+        " - Ataque: 0\n" + this.ataqueAtributo +
         " - Defensa: " + getDefensa() + "\n" +
         " - Velocidad: " + getVelocidad();
     }
