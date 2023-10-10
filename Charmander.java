@@ -1,11 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
-/**
- * Write a description of class Charmander here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Charmander extends Criatura{
     private int ataque = 10;
     private int velocidad = 300;
@@ -17,6 +12,7 @@ public class Charmander extends Criatura{
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);
+        crearAtaques();
 
     }
 
@@ -47,6 +43,15 @@ public class Charmander extends Criatura{
    
     public boolean puedeRealizarAtaque4En(Criatura otro) {
         return false;
+    }
+
+    public void crearAtaques(){
+        super.ataques[0] = new Puño();
+        super.ataques[1] = new Gruñido();
+        super.ataques[2] = new Cuchillada();
+        super.ataques[3] = new Ascuas();
+       
+
     }
 
 }

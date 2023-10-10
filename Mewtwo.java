@@ -13,7 +13,7 @@ public class Mewtwo extends Criatura
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);
-
+        crearAtaques();
                     
     }
 
