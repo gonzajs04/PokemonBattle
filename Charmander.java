@@ -26,9 +26,10 @@ public class Charmander extends Criatura{
         return this.defensa;
     }
 
-    public void atacar(Criatura otro) {
-        atacarCriatura(otro);
-    }
+   /* public void atacar(Criatura otro) {
+       
+        
+    }*/
 
  
     public boolean puedeRealizarAtaque2En(Criatura otro) {
@@ -46,10 +47,10 @@ public class Charmander extends Criatura{
     }
 
     public void crearAtaques(){
-        super.ataques[0] = new Puño();
-        super.ataques[1] = new Gruñido();
-        super.ataques[2] = new Cuchillada();
-        super.ataques[3] = new Ascuas();
+        super.getAtaques()[0] = new Puño();
+        super.getAtaques()[1] = new Gruñido();
+        super.getAtaques()[2] = new Cuchillada();
+        super.getAtaques()[3] = new Ascuas();
        
 
     }

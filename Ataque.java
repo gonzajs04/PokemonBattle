@@ -1,10 +1,8 @@
 import greenfoot.*;
 public class Ataque extends Actor
 {
-
     private int dañoMin;
-        private int dañoMax;
-
+    private int dañoMax;
     private String tipo;
     private int cantEnergiaNecesaria;
     public Ataque(int dañoMin,int dañoMax,String tipo, int cantEnergiaNecesaria){

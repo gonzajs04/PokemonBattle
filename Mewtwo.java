@@ -21,9 +21,10 @@ public class Mewtwo extends Criatura
         this(nombre, false);
     }
 
-    public void atacar(Criatura otro) {
-        atacarCriatura(otro);
-    }
+   /* public void atacar(Criatura otro) {
+       
+        
+    }*/
     
        public int getVelocidad(){
         return this.velocidad;
@@ -49,10 +50,10 @@ public class Mewtwo extends Criatura
     
     
     public void crearAtaques(){
-        super.ataques[0] = new Puño();
-        super.ataques[1] = new GolpeAereo();
-        super.ataques[2] = new Paralizador();
-        super.ataques[3] = new Psicocorte();
+        super.getAtaques()[0] = new Puño();
+        super.getAtaques()[1] = new GolpeAereo();
+        super.getAtaques()[2] = new Paralizador();
+        super.getAtaques()[3] = new Psicocorte();
 
     }
 }

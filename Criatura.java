@@ -9,7 +9,7 @@ public abstract class Criatura extends Actor {
 
     protected final String[] nombresAtaque;
     protected final String[] detallesAtaque;
-    protected Ataque [] ataques;
+    private Ataque [] ataques;
     protected final boolean equipo1;
 
     protected int vida;
@@ -34,13 +34,9 @@ public abstract class Criatura extends Actor {
         this.nombresAtaque = nombresAtaque;
         this.detallesAtaque = detallesAtaque;
         this.vida = vida;
-
         this.cantAtaques = cantAtaques;
-
         this.estaDesmayado = false;
         this.estaParalizado = false;
-
-
         this.equipo1 = equipo1;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
@@ -48,6 +44,10 @@ public abstract class Criatura extends Actor {
         crearArrayDeAtaques();
     }
    
+       
+    public Ataque[] getAtaques(){
+        return this.ataques;
+    }
 
     @Override
     protected void addedToWorld(World world) {
@@ -121,19 +121,22 @@ public abstract class Criatura extends Actor {
         setImage(nuevaImagen);
     }
 
-    public void atacarCriatura(Criatura otro) {
+    public void atacarCriatura(Criatura otro,Ataque ataque) {
         if(otro.getVida() <= 0){
             otro.setEstaDesmayado(this);
         } else {
-            otro.recibirDaño(this);
+            otro.recibirDaño(this,ataque);
         }        
     }
 
-       protected int recibirDaño(Criatura atacante) {
+       protected int recibirDaño(Criatura atacante,Ataque ataque) {
+        Random rand = new Random();
+        double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
+
         if(this.vida>0){
-            this.vida -= 5;
+            this.vida -= 2*(1+(atacante.ataqueAtributo/atacante.defensa)*numeroAleatorio); //FALTA EL FACTOR TIPO
             uiInfoCriatura.actualizar();
-            return 5;
+            return this.vida;
         } return 0;
     }
 
@@ -200,6 +203,7 @@ public abstract class Criatura extends Actor {
     public void crearArrayDeAtaques(){
         ataques = new Ataque[this.cantAtaques];
     }
+ 
   
 
    

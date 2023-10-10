@@ -24,9 +24,10 @@ public class Pikachu extends Criatura {
     public int getDefensa(){
         return this.defensa;
     }
-    public void atacar(Criatura otro) {
-        atacarCriatura(otro);
-    }
+   /* public void atacar(Criatura otro) {
+       
+        
+    }*/
 
     public boolean puedeRealizarAtaque2En(Criatura otro) {
         return false;
@@ -44,10 +45,10 @@ public class Pikachu extends Criatura {
     }
 
     public void crearAtaques(){
-        super.ataques[0] = new Puño();
-        super.ataques[1] = new Rayo();
-        super.ataques[2] = new Placaje();
-        super.ataques[3] = new FuriaDeRayo();
+        super.getAtaques()[0] = new Puño();
+        super.getAtaques()[1] = new Rayo();
+        super.getAtaques()[2] = new Placaje();
+        super.getAtaques()[3] = new FuriaDeRayo();
 
     }
 }

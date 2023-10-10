@@ -36,19 +36,20 @@ public class Squirtle extends Criatura
         return false;
     }
 
-    public void atacar(Criatura otro) {
-        atacarCriatura(otro);
-    }
+    /* public void atacar(Criatura otro) {
+       
+        
+    }*/
 
     public boolean puedeRealizarAtaque4En(Criatura otro) {
         return false;
     }
 
     public void crearAtaques(){
-        super.ataques[0] = new Puño();
-        super.ataques[1] = new Alivio();
-        super.ataques[2] = new AtaqueBurbuja();
-        super.ataques[3] = new Piña();
+        super.getAtaques()[0] = new Puño();
+        super.getAtaques()[1] = new Alivio();
+        super.getAtaques()[2] = new AtaqueBurbuja();
+        super.getAtaques()[3] = new Piña();
 
     }
 }

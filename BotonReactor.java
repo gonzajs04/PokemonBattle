@@ -1,5 +1,4 @@
 import greenfoot.*;
-
 public class BotonReactor {
     Boton boton;
     UIAtaques uiAtaques;
@@ -11,24 +10,25 @@ public class BotonReactor {
         this.uiAtaques = uiAtaques;
         this.criaturaActual = criaturaActual;
         this.numeroAtaque = numeroAtaque;
-
         boton.actualizar(this);
     }
 
     public void run() {
+        
+        Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1];
+        
         // PantallaDuelo pantallaDuelo = ((PantallaDuelo) uiAtaques.getWorld());
-
         if (uiAtaques.botonSeleccionado == boton) {
-        	// Si clickeo lo que está seleccionado, lo des-selecciona
+            // Si clickeo lo que está seleccionado, lo des-selecciona
             uiAtaques.ataque = null;
             uiAtaques.resetColorBotones();
             uiAtaques.descripcion.setText("");
             uiAtaques.botonSeleccionado = null;
         } else {
-        	// Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
+            // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
             uiAtaques.ataque = () -> {
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) {
-                    atacarBoton(uiAtaques.ataqueObjetivo);
+                    atacarBoton(uiAtaques.ataqueObjetivo,ataque);
                     // pantallaDuelo.turno();
                 }
             };
@@ -49,20 +49,20 @@ public class BotonReactor {
 
     public boolean puedeAtacarlo(Criatura otro) {
         switch (this.numeroAtaque) {
-		case 1:
-		    return this.criaturaActual.puedeRealizarAtaque1En(otro);
-		case 2:
-		    return this.criaturaActual.puedeRealizarAtaque2En(otro);
-		case 3:
-		    return this.criaturaActual.puedeRealizarAtaque3En(otro);
-		case 4:
-		    return this.criaturaActual.puedeRealizarAtaque4En(otro);
-		}
-		return false;
+        case 1:
+            return this.criaturaActual.puedeRealizarAtaque1En(otro);
+        case 2:
+            return this.criaturaActual.puedeRealizarAtaque2En(otro);
+        case 3:
+            return this.criaturaActual.puedeRealizarAtaque3En(otro);
+        case 4:
+            return this.criaturaActual.puedeRealizarAtaque4En(otro);
+        }
+        return false;
     }
 
-    public void atacarBoton(Criatura otro) {
-        this.criaturaActual.atacarCriatura(otro);
+    public void atacarBoton(Criatura otro, Ataque ataque) {
+        this.criaturaActual.atacarCriatura(otro,ataque); //LE VOY A PASAR EL ATAQUE A CRIATURA POR PARAMETRO PARA HACERLE DAÑO CON EL ATAQUE CORRESPONDIENTE
 
     }
 }
