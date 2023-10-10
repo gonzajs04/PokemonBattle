@@ -5,9 +5,11 @@ public class Ataque extends Actor
     private int dañoMax;
     private String tipo;
     private int cantEnergiaNecesaria;
-    public Ataque(int dañoMin,int dañoMax,String tipo, int cantEnergiaNecesaria){
+    private String nombre;
+    public Ataque(String nombre,int dañoMin,int dañoMax,String tipo, int cantEnergiaNecesaria){
         this.dañoMin = dañoMin;
         this.dañoMax = dañoMax;
+        this.nombre = nombre;
         this.tipo = tipo;
         this.cantEnergiaNecesaria = cantEnergiaNecesaria;
     }

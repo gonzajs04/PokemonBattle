@@ -5,7 +5,7 @@ public class Rayo extends Ataque {
         private int probabilidadParalizar = 90;
 
     public Rayo(){
-        super(0,10, "Electricidad",50);
+        super("Rayo",0,10, "Electricidad",50);
     }
 }
 

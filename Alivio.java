@@ -7,6 +7,6 @@ public class Alivio extends Ataque {
     
     public Alivio(){
        
-        super(0,0, "Curacion",20);
+        super("Alivio",0,0, "Curacion",20);
     }
 }

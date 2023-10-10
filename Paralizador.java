@@ -10,7 +10,7 @@ public class Paralizador extends Ataque
 {
     private int turnosAParalizar = 2;
    public Paralizador(){
-       super(0,0,"Mistico",10);
+       super("Paralizador",0,0,"Mistico",10);
    }
    public int turnosAParalizar(){
        return turnosAParalizar;

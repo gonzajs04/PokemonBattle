@@ -5,7 +5,7 @@ public class FuriaDeRayo extends Ataque {
     public int porcentajeDeVidaADisminuir = 80;
 
     public FuriaDeRayo(){
-        super(0,0, "Electricidad",80);
+        super("Furia De Rayo",0,0, "Electricidad",80);
     }
 }
 
