@@ -18,6 +18,7 @@ public abstract class Criatura extends Actor {
     private int cantAtaques;
     private boolean visualHover;
     private boolean visualSeleccionado;
+    private boolean estaParalizado;
     private boolean estaDesmayado;
     private boolean estaDesmayado2;
     private boolean estaDesmayado3;
@@ -33,12 +34,13 @@ public abstract class Criatura extends Actor {
         this.nombresAtaque = nombresAtaque;
         this.detallesAtaque = detallesAtaque;
         this.vida = vida;
-<<<<<<< HEAD
-        this.cantAtaques = cantAtaques;
-=======
-        this.estaDesmayado = false;
 
->>>>>>> 744f3334516d3f193ea7fd272ce47cd5a56d07d5
+        this.cantAtaques = cantAtaques;
+
+        this.estaDesmayado = false;
+        this.estaParalizado = false;
+
+
         this.equipo1 = equipo1;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
@@ -95,6 +97,9 @@ public abstract class Criatura extends Actor {
     public void setEstaDesmayado(Criatura nombre){
         this.estaDesmayado = true;
     
+    }
+    public void setEstaParalizado(Criatura nombre){
+        this.estaParalizado = true;
     }
     
     public void render() {
