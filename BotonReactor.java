@@ -16,7 +16,7 @@ public class BotonReactor {
 
     public void run() {
         
-        Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1];
+        Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1]; //OBTENGO EL ATAQUE DE LA CRIATURA QUE PASAMOS A TRAVES DE LA CLASE UI ATAQUES EN LA FUNCION asignarCriaturaActual()
         //System.out.println(this.criaturaActual.getAtaques()[this.numeroAtaque-1].getNombre());
         // PantallaDuelo pantallaDuelo = ((PantallaDuelo) uiAtaques.getWorld());
         if (uiAtaques.botonSeleccionado == boton) {
@@ -65,7 +65,7 @@ public class BotonReactor {
     }
 
     public void atacarBoton(Criatura otro, Ataque ataque) {
-        this.criaturaActual.atacarCriatura(otro,ataque); //LE VOY A PASAR EL ATAQUE A CRIATURA POR PARAMETRO PARA HACERLE DAÑO CON EL ATAQUE CORRESPONDIENTE
+        this.criaturaActual.atacarCriatura(otro,ataque); //LE VOY A PASAR EL ATAQUE A LA CLASE CRIATURA - funcion atacarCriatura POR PARAMETRO PARA HACERLE DAÑO CON EL ATAQUE CORRESPONDIENTE
 
     }
 }

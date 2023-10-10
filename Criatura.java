@@ -1,6 +1,6 @@
 import java.lang.*;
 import java.util.*;
- 
+
 import greenfoot.*;
 
 public abstract class Criatura extends Actor {
@@ -9,7 +9,7 @@ public abstract class Criatura extends Actor {
 
     protected final String[] nombresAtaque;
     protected final String[] detallesAtaque;
-    private Ataque [] ataques;
+    private Ataque[] ataques;
     protected final boolean equipo1;
 
     protected int vida;
@@ -28,7 +28,8 @@ public abstract class Criatura extends Actor {
     private int defensa;
     private int ataqueAtributo;
 
-    public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,int cantAtaques) {
+    public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
+            int cantAtaques) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -43,9 +44,8 @@ public abstract class Criatura extends Actor {
         this.uiInfoCriatura = new UIInfoCriatura(this);
         crearArrayDeAtaques();
     }
-   
-       
-    public Ataque[] getAtaques(){
+
+    public Ataque[] getAtaques() {
         return this.ataques;
     }
 
@@ -55,7 +55,8 @@ public abstract class Criatura extends Actor {
 
         getWorld().addObject(uiInfoCriatura, getX(), getY());
         // Una vez en el mundo, actualizo segun su tamaño
-        uiInfoCriatura.setLocation(getX(), getY() + getImage().getHeight() / 2 - /*Sombra*/ 10 + uiInfoCriatura.getImage().getHeight() / 2);
+        uiInfoCriatura.setLocation(getX(),
+                getY() + getImage().getHeight() / 2 - /* Sombra */ 10 + uiInfoCriatura.getImage().getHeight() / 2);
     }
 
     public void act() {
@@ -70,14 +71,14 @@ public abstract class Criatura extends Actor {
 
             if (actor.size() > 0 && actor.get(0) == this) {
                 visualHover = true;
-                ((PantallaDuelo)getWorld()).hover(this);
+                ((PantallaDuelo) getWorld()).hover(this);
             } else {
                 visualHover = false;
             }
         }
 
         if (Greenfoot.mouseClicked(this)) {
-            ((PantallaDuelo)getWorld()).click(this);
+            ((PantallaDuelo) getWorld()).click(this);
         }
 
         if (_visualHover != visualHover || _visualSeleccionado != visualSeleccionado) {
@@ -85,68 +86,78 @@ public abstract class Criatura extends Actor {
         }
     }
 
-    public boolean getEstaAtacando(){
+    public boolean getEstaAtacando() {
         return estaAtacando;
     }
 
-    public void setEstaAtacando(boolean estaAtacando){
+    public void setEstaAtacando(boolean estaAtacando) {
         this.estaAtacando = estaAtacando;
     }
-    public void setDefensa(int defensa){
+
+    public void setDefensa(int defensa) {
         this.defensa = defensa;
     }
-    public void setVelocidad(int velocidad){
+
+    public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
-    public void setAtaqueAtributo(int ataque){
+
+    public void setAtaqueAtributo(int ataque) {
         this.ataqueAtributo = ataque;
     }
-    public void setEstaDesmayado(Criatura nombre){
+
+    public void setEstaDesmayado(Criatura nombre) {
         this.estaDesmayado = true;
-    
+
     }
-    public void setEstaParalizado(Criatura nombre){
+
+    public void setEstaParalizado(Criatura nombre) {
         this.estaParalizado = true;
     }
-    
+
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
-                public void configurar() {
-                    if (!equipo1) {
-                        flipHorizontally();
-                    }
-                    if (visualHover) {
-                        scaleToRatio(1.15);
-                    }
-                    if (visualSeleccionado) {
-                        highlight();
-                    }
-                    shadow();
+            public void configurar() {
+                if (!equipo1) {
+                    flipHorizontally();
                 }
-            };
+                if (visualHover) {
+                    scaleToRatio(1.15);
+                }
+                if (visualSeleccionado) {
+                    highlight();
+                }
+                shadow();
+            }
+        };
 
         setImage(nuevaImagen);
     }
 
-    public void atacarCriatura(Criatura otro,Ataque ataque) {
-        if(otro.getVida() <= 0){
+    public void atacarCriatura(Criatura otro, Ataque ataque) {
+        if (otro.getVida() <= 0) {
             otro.setEstaDesmayado(this);
         } else {
-            otro.recibirDaño(this,ataque);
-        }        
+            otro.recibirDaño(this, ataque);
+        }
     }
 
-       protected int recibirDaño(Criatura atacante,Ataque ataque) {
+    protected int recibirDaño(Criatura atacante, Ataque ataque) {
         Random rand = new Random();
         double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
+        double daño = 2 * (1 + (atacante.ataqueAtributo / atacante.defensa) * numeroAleatorio); // FALTA EL FACTOR TIPO
+        double dañoFinal = Math.round(daño);
+        if (this.vida > 0) {
+            this.vida -= dañoFinal;
 
-        if(this.vida>0){
-            this.vida -= 2*(1+(atacante.ataqueAtributo/atacante.defensa)*numeroAleatorio); //FALTA EL FACTOR TIPO
+            System.out.println("El pokemon " + atacante.getNombre() + " Ataco con " + ataque.getNombre() + "y quito "
+                    + dañoFinal + " de vida a " + this.getNombre());
             uiInfoCriatura.actualizar();
-            return this.vida;
-        } return 0;
-    }
 
+            return this.vida;
+        }
+        return 0;
+    }
 
     protected boolean esDelMismoEquipoQue(Criatura otro) {
         return this.equipo1 == otro.equipo1;
@@ -162,22 +173,23 @@ public abstract class Criatura extends Actor {
 
     public abstract boolean puedeRealizarAtaque4En(Criatura otro);
 
- 
     public int getVida() {
         return vida;
     }
 
-    public String getNombre(){
+    public String getNombre() {
         return this.nombre;
     }
+
     public int getVidaMaxima() {
         return vidaMaxima;
     }
-    
-    public int getVelocidad(){
+
+    public int getVelocidad() {
         return this.velocidad;
     }
-    public int getDefensa(){
+
+    public int getDefensa() {
         return this.defensa;
     }
 
@@ -203,18 +215,15 @@ public abstract class Criatura extends Actor {
     }
 
     public String getStats() {
-         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
-        " - Ataque: " + this.ataqueAtributo + "\n"+
-        
-        " - Defensa: " + getDefensa() + "\n" +
-        " - Velocidad: " + getVelocidad();
+        return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
+                " - Ataque: " + this.ataqueAtributo + "\n" +
+
+                " - Defensa: " + getDefensa() + "\n" +
+                " - Velocidad: " + getVelocidad();
     }
 
-    public void crearArrayDeAtaques(){
+    public void crearArrayDeAtaques() {
         ataques = new Ataque[this.cantAtaques];
     }
- 
-  
 
-   
 }
