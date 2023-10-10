@@ -36,14 +36,11 @@ public class UIAtaques extends Actor {
 
     public void asignarCriaturaActual(Criatura criaturaActual) { //RECIBO LA CRIATURA
         this.criaturaActual = criaturaActual;
-
         tituloAtaques.actualizarTexto(criaturaActual.toString());
-        descripcion.setText("");
         botonSeleccionado = null;
         ataque = null;
         resetColorBotones();
         criaturaActual.setVisualSeleccionado(true);
-
         dibujarFondo();
 
         Boton[] botones = { b1, b2, b3, b4 };

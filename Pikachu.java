@@ -1,15 +1,17 @@
 import java.util.*;
 public class Pikachu extends Criatura {
-      private int velocidad = 300;
+    private int velocidad = 300;
     private int defensa = 100;
     private int ataque=150;
+    private String [] debilidades = {"Normal","Fuego"};
     public Pikachu(String nombre, boolean imagenEspejada) {
         super(nombre, 100, new String[] { "Puño", "- Rayo -", "- Placaje -", "- Furia de rayo -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Quita 10 de daño y hay un 90% de probabilidades de paralizar al rival por 2 turnos", "Quita 5% de daño con un 85% de golpe critico",
                     "Se necesita 80 de energia y reduce la vida del rival un 90%" },4);
-       super.setDefensa(this.defensa);
-        super.setVelocidad(this.velocidad);
-        super.setAtaqueAtributo(this.ataque);
+        super.setDefensa(this.defensa);//LE ASIGNO EL ATRIBUTO DEFENSA EN LA CLASE CRIATURA
+        super.setVelocidad(this.velocidad);//LE ASIGNO EL ATRIBUTO VELOCIDAD EN LA CLASE CRIATURA
+        super.setAtaqueAtributo(this.ataque); //LE ASIGNO EL ATRIBUTO ATAQUE EN LA CLASE CRIATURA
+        super.setDebilidades(debilidades); //Le ASIGNO LAS DEBILIDADES EN LA CLASE CRIATURA
         crearAtaques();
 
     }

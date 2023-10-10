@@ -27,9 +27,10 @@ public abstract class Criatura extends Actor {
     private int velocidad;
     private int defensa;
     private int ataqueAtributo;
+    private String [] debilidades;
 
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
-            int cantAtaques) {
+    int cantAtaques) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -56,7 +57,7 @@ public abstract class Criatura extends Actor {
         getWorld().addObject(uiInfoCriatura, getX(), getY());
         // Una vez en el mundo, actualizo segun su tamaño
         uiInfoCriatura.setLocation(getX(),
-                getY() + getImage().getHeight() / 2 - /* Sombra */ 10 + uiInfoCriatura.getImage().getHeight() / 2);
+            getY() + getImage().getHeight() / 2 - /* Sombra */ 10 + uiInfoCriatura.getImage().getHeight() / 2);
     }
 
     public void act() {
@@ -117,19 +118,19 @@ public abstract class Criatura extends Actor {
 
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
-            public void configurar() {
-                if (!equipo1) {
-                    flipHorizontally();
+                public void configurar() {
+                    if (!equipo1) {
+                        flipHorizontally();
+                    }
+                    if (visualHover) {
+                        scaleToRatio(1.15);
+                    }
+                    if (visualSeleccionado) {
+                        highlight();
+                    }
+                    shadow();
                 }
-                if (visualHover) {
-                    scaleToRatio(1.15);
-                }
-                if (visualSeleccionado) {
-                    highlight();
-                }
-                shadow();
-            }
-        };
+            };
 
         setImage(nuevaImagen);
     }
@@ -145,19 +146,34 @@ public abstract class Criatura extends Actor {
     protected int recibirDaño(Criatura atacante, Ataque ataque) {
         Random rand = new Random();
         double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-        double daño = 2 * (1 + (atacante.ataqueAtributo / atacante.defensa) * numeroAleatorio); // FALTA EL FACTOR TIPO
+
+        double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
+        double daño = 2 * (1 + (atacante.ataqueAtributo / atacante.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
+
         double dañoFinal = Math.round(daño);
         if (this.vida > 0) {
             this.vida -= dañoFinal;
-
             System.out.println("El pokemon " + atacante.getNombre() + " Ataco con " + ataque.getNombre() + "y quito "
-                    + dañoFinal + " de vida a " + this.getNombre());
+            + dañoFinal + " de vida a " + this.getNombre());
             uiInfoCriatura.actualizar();
 
             return this.vida;
         }
         return 0;
     }
+
+     public double verificarFactorCriatura(Criatura oponente,Ataque ataque){
+            double factor = 1; //EN CASO DE QUE NO TENGA DEBILIDAD EL FACTOR ES 1
+            for(int i = 0; i<oponente.getDebilidades().length;i++){
+                if(oponente.getDebilidades()[i] == ataque.getTipo()){
+                    System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "+ ataque.getTipo() + " , el daño sera de 1.25 mayor");
+                     factor = 1.25;
+                }
+            }
+            return factor;
+     }
+
+   
 
     protected boolean esDelMismoEquipoQue(Criatura otro) {
         return this.equipo1 == otro.equipo1;
@@ -197,6 +213,15 @@ public abstract class Criatura extends Actor {
         return equipo1;
     }
 
+    public void setDebilidades(String [] debilidades){
+        this.debilidades = debilidades; //LE SETEO LAS DEBILIDADES DEL POKEMON
+
+    }
+
+    public String [] getDebilidades(){
+        return this.debilidades; //Obtengo las debilidades
+    }
+
     public void setVisualSeleccionado(boolean visualSeleccionado) {
         this.visualSeleccionado = visualSeleccionado;
         render();
@@ -216,10 +241,11 @@ public abstract class Criatura extends Actor {
 
     public String getStats() {
         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
-                " - Ataque: " + this.ataqueAtributo + "\n" +
+        " - Ataque: " + this.ataqueAtributo + "\n" +
 
-                " - Defensa: " + getDefensa() + "\n" +
-                " - Velocidad: " + getVelocidad();
+        " - Defensa: " + getDefensa() + "\n" +
+        " - Velocidad: " + getVelocidad() + "\n"+
+        "- Debilidades: "+ Arrays.toString(getDebilidades()); //Las convierto para mostrarlas como texto
     }
 
     public void crearArrayDeAtaques() {

@@ -5,6 +5,7 @@ public class Charmander extends Criatura{
     private int ataque = 10;
     private int velocidad = 300;
     private int defensa = 100;
+    private String[] debilidades = {"Agua"};
     public Charmander(String nombre, boolean imagenEspejada) {
         super(nombre, 100, new String[] { "Puño", "- Gruñido -", "- Chuchillada -", "- Ascuas -" }, imagenEspejada,
             new String[] { "Causa un daño moderado a un enemigo", "Baja un nivel el Ataque al rival",
@@ -12,6 +13,7 @@ public class Charmander extends Criatura{
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);
+        super.setDebilidades(debilidades);
         crearAtaques();
 
     }

@@ -44,7 +44,6 @@ public class PantallaDuelo extends World {
 
     public void turno() {
         turno++;
-
         for (int i = 0; i < criaturas.length; i++) {
             criaturas[i].setVisualSeleccionado(false);
         }

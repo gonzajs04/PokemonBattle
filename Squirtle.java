@@ -1,16 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Snorlax here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Squirtle extends Criatura
 {
       private int velocidad = 100;
     private int defensa = 100;
     private int ataque=10;
+        private String[] debilidades = {"Fuego"};
+
     public Squirtle(String nombre, boolean imagenEspejada) {
         super(nombre, 100, new String[] { "Puño", "- Alivio -", "- Ataque burbuja -", "- Piña -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Quita la paralizacion del aliado",
@@ -18,6 +14,7 @@ public class Squirtle extends Criatura
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);
+        super.setDebilidades(debilidades);
         crearAtaques();
     }
 
