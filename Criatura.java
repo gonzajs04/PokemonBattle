@@ -122,6 +122,7 @@ public abstract class Criatura extends Actor {
     }
 
     public void atacarCriatura(Criatura otro,Ataque ataque) {
+        System.out.println(ataque.getNombre());
         if(otro.getVida() <= 0){
             otro.setEstaDesmayado(this);
         } else {

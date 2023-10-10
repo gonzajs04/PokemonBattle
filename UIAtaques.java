@@ -49,7 +49,7 @@ public class UIAtaques extends Actor {
         Boton[] botones = { b1, b2, b3, b4 };
 
         for (int i = 0; i < botones.length; i++) {
-            new BotonReactor(botones[i], this, criaturaActual, i + 1);
+            new BotonReactor(botones[i], this, criaturaActual, i + 1); //LE PASO LA CRIATURA ACTUAL PARA OBTENER LUEGO LOS ATAQUES
         }
     }
 

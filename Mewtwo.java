@@ -34,18 +34,18 @@ public class Mewtwo extends Criatura
     }
 
     public boolean puedeRealizarAtaque2En(Criatura otro) {
-        return false;
+        return !esDelMismoEquipoQue(otro);
     }
 
 
     public boolean puedeRealizarAtaque3En(Criatura otro) {
-        return false;
+        return !esDelMismoEquipoQue(otro);
     }
 
 
 
     public boolean puedeRealizarAtaque4En(Criatura otro) {
-        return false;
+        return !esDelMismoEquipoQue(otro);
     }
     
     

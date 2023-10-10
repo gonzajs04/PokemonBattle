@@ -17,7 +17,7 @@ public class BotonReactor {
     public void run() {
         
         Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1];
-        System.out.println(this.criaturaActual.getAtaques()[this.numeroAtaque-1].getDañoMin());
+        //System.out.println(this.criaturaActual.getAtaques()[this.numeroAtaque-1].getNombre());
         // PantallaDuelo pantallaDuelo = ((PantallaDuelo) uiAtaques.getWorld());
         if (uiAtaques.botonSeleccionado == boton) {
             // Si clickeo lo que está seleccionado, lo des-selecciona

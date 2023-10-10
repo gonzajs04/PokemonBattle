@@ -26,6 +26,9 @@ public class Ataque extends Actor
     public String getTipo(){
         return tipo;
     }
+    public String getNombre(){
+        return this.nombre;
+    }
     
 
 
