@@ -22,7 +22,7 @@ public abstract class Criatura extends Actor {
     private boolean estaDesmayado;
     private boolean estaDesmayado2;
     private boolean estaDesmayado3;
-
+    private boolean estaAtacando = false;
     private final MyGreenfootImage imagenOriginal;
     private int velocidad;
     private int defensa;
@@ -85,6 +85,13 @@ public abstract class Criatura extends Actor {
         }
     }
 
+    public boolean getEstaAtacando(){
+        return estaAtacando;
+    }
+
+    public void setEstaAtacando(boolean estaAtacando){
+        this.estaAtacando = estaAtacando;
+    }
     public void setDefensa(int defensa){
         this.defensa = defensa;
     }
@@ -122,7 +129,6 @@ public abstract class Criatura extends Actor {
     }
 
     public void atacarCriatura(Criatura otro,Ataque ataque) {
-        System.out.println(ataque.getNombre());
         if(otro.getVida() <= 0){
             otro.setEstaDesmayado(this);
         } else {
@@ -161,6 +167,9 @@ public abstract class Criatura extends Actor {
         return vida;
     }
 
+    public String getNombre(){
+        return this.nombre;
+    }
     public int getVidaMaxima() {
         return vidaMaxima;
     }

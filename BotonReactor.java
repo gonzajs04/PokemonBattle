@@ -25,10 +25,12 @@ public class BotonReactor {
             uiAtaques.resetColorBotones();
             uiAtaques.descripcion.setText("");
             uiAtaques.botonSeleccionado = null;
+            this.criaturaActual.setEstaAtacando(false);
         } else {
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
             uiAtaques.ataque = () -> {
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) {
+                    this.criaturaActual.setEstaAtacando(true);
                     atacarBoton(uiAtaques.ataqueObjetivo,ataque);
                     // pantallaDuelo.turno();
                 }

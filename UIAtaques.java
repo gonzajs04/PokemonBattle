@@ -34,7 +34,7 @@ public class UIAtaques extends Actor {
         getWorld().addObject(descripcion, 352 + 344 / 2, 300);
     }
 
-    public void asignarCriaturaActual(Criatura criaturaActual) {
+    public void asignarCriaturaActual(Criatura criaturaActual) { //RECIBO LA CRIATURA
         this.criaturaActual = criaturaActual;
 
         tituloAtaques.actualizarTexto(criaturaActual.toString());
