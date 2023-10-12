@@ -10,7 +10,7 @@ public class Mewtwo extends Criatura
 
     public Mewtwo(String nombre, boolean imagenEspejada) {
         super(nombre, 200, new String[] { "Puño", "- Golpe Aereo -", "- Paralizador -", "- Psicocorte -" }, imagenEspejada,
-                new String[] { "Causa un daño moderado a un enemigo", "Realiza el puño 5 veces dentro de 1 ataque", "Cancela 2 turnos del rival ",
+                new String[] { "Causa un daño moderado a un enemigo", "Realiza una patada voladora", "Cancela 2 turnos del rival ",
                 "Quita entre 20-30 de daño con un 10% de golpe critico " },4,"Mistico");
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
