@@ -16,7 +16,7 @@ public class BotonReactor {
 
     public void run() {
         
-        Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1]; //OBTENGO EL ATAQUE DE LA CRIATURA QUE PASAMOS A TRAVES DE LA CLASE UI ATAQUES EN LA FUNCION asignarCriaturaActual()
+        Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1]; //OBTENGO EL ATAQUE DE LA CRIATURA QUE PASAMOS A TRAVES DE LA CLASE UIATAQUES EN LA FUNCION asignarCriaturaActual()
         //System.out.println(this.criaturaActual.getAtaques()[this.numeroAtaque-1].getNombre());
         // PantallaDuelo pantallaDuelo = ((PantallaDuelo) uiAtaques.getWorld());
         if (uiAtaques.botonSeleccionado == boton) {
@@ -27,8 +27,8 @@ public class BotonReactor {
             uiAtaques.botonSeleccionado = null;
         } else {
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
-            uiAtaques.ataque = () -> {
-                if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) {
+            uiAtaques.ataque = () -> { //Si puede atacar que cambie ataque = true
+                if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) { //VERIFICO SI PUEDE ATACAR A LA CRIATURA
                     atacarBoton(uiAtaques.ataqueObjetivo,ataque);
                     // pantallaDuelo.turno();
                 }

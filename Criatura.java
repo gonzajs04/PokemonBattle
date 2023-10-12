@@ -54,6 +54,10 @@ public abstract class Criatura extends Actor {
         return this.ataques;
     }
 
+    public String getTipo(){
+        return this.tipo;
+    }
+
     @Override
     protected void addedToWorld(World world) {
         render();
@@ -143,7 +147,7 @@ public abstract class Criatura extends Actor {
         if (otro.getVida() <= 0) {
             otro.setEstaDesmayado(this);
         } else {
-            otro.recibirDaño(this, ataque);
+            otro.recibirDaño(this, ataque); //BTNREAC
         }
     }
 
@@ -157,7 +161,7 @@ public abstract class Criatura extends Actor {
         double dañoFinal = Math.round(daño);
         if (this.vida > 0) {
             this.vida -= dañoFinal;
-            System.out.println("El pokemon " + atacante.getNombre() + " Ataco con " + ataque.getNombre() + "y quito "
+            System.out.println("El pokemon " + atacante.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
             + dañoFinal + " de vida a " + this.getNombre());
             uiInfoCriatura.actualizar();
 
@@ -169,11 +173,17 @@ public abstract class Criatura extends Actor {
      public double verificarFactorCriatura(Criatura oponente,Ataque ataque){
             double factor = 1; //EN CASO DE QUE NO TENGA DEBILIDAD EL FACTOR ES 1
             for(int i = 0; i<oponente.getDebilidades().length;i++){
-                if(oponente.getDebilidades()[i] == ataque.getTipo()){
+                if(oponente.getDebilidades()[i] == ataque.getTipo()){ //ME FIJO SI TIENE DEBILIDADES AL ATAQUE
+                    //EN CASO DE QUE SI, EL FACTOR EL 1.25
                     System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "+ ataque.getTipo() + " , el daño sera de 1.25 mayor");
                      factor = 1.25;
-                }else if(oponente.getTipo())
+                }else if(oponente.getTipo() == ataque.getTipo()){ //En caso de que no tenga debilidad, me fijo, si es tipo del oponente es igual al tipo de ataque. En caso de que si, tiene un factor de 0.75
+                     System.out.println("El pokemon que estas atacando tiene una resistencia hacia el ataque: "+ ataque.getTipo() + " , el daño sera de 0.75 mayor");
+
+                    factor = 0.75;
+                }
             }
+            //en caso que no tenga no tenga debilidades ni resistencias el factor es de 1
             return factor;
      }
 

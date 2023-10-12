@@ -52,10 +52,10 @@ public class UIAtaques extends Actor {
 
     public void click(Criatura c) {
         ataqueObjetivo = c;
-        if (botonSeleccionado == null) {
+        if (botonSeleccionado == null) { //EN CASO DE QUE NO HAYA UN BOTON DE ATAQUE SELECCIONADO QUE ME OBTENGA LAS STATS DE LA CRIATURA
             descripcion.setText(c.getStats());
         }
-        if (ataque != null) {
+        if (ataque != null) { //cambia en BTREAC
             ataque.run();
         }
     }
