@@ -28,9 +28,12 @@ public abstract class Criatura extends Actor {
     private int defensa;
     private int ataqueAtributo;
     private String [] debilidades;
+    private boolean isResistente = false;
+    private boolean tieneDebilidad = false;
+    private String tipo;
 
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
-    int cantAtaques) {
+    int cantAtaques,String tipo) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -40,6 +43,7 @@ public abstract class Criatura extends Actor {
         this.estaDesmayado = false;
         this.estaParalizado = false;
         this.equipo1 = equipo1;
+        this.tipo = tipo;
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
         this.uiInfoCriatura = new UIInfoCriatura(this);
@@ -168,7 +172,7 @@ public abstract class Criatura extends Actor {
                 if(oponente.getDebilidades()[i] == ataque.getTipo()){
                     System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "+ ataque.getTipo() + " , el daño sera de 1.25 mayor");
                      factor = 1.25;
-                }
+                }else if(oponente.getTipo())
             }
             return factor;
      }
