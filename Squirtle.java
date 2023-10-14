@@ -8,7 +8,7 @@ public class Squirtle extends Criatura
         private String[] debilidades = {"Fuego"};
 
     public Squirtle(String nombre, boolean imagenEspejada) {
-        super(nombre, 100, new String[] { "Puño", "- Alivio -", "- Ataque burbuja -", "- Piña -" }, imagenEspejada,
+        super(nombre, 10, new String[] { "Puño", "- Alivio -", "- Ataque burbuja -", "- Piña -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Quita la paralizacion del aliado",
                     "15 de daño y envuelve al rival en una burbuja que lo suspende por 1 turno", "Baja 3 de daño" },4,"Agua");
         super.setDefensa(this.defensa);

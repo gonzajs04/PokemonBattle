@@ -152,7 +152,8 @@ public abstract class Criatura extends Actor {
     }
 
     protected int recibirDaño(Criatura atacante, Ataque ataque) {
-        Random rand = new Random();
+       if(verificarVidaOponente()){
+         Random rand = new Random();
         double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
         double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
@@ -167,7 +168,17 @@ public abstract class Criatura extends Actor {
 
             return this.vida;
         }
+    
+       }
         return 0;
+    }
+
+    public boolean verificarVidaOponente(){
+        if(this.getVida()>0){
+            return true;
+        }
+        this.setVida(0);
+        return false;
     }
 
      public double verificarFactorCriatura(Criatura oponente,Ataque ataque){
@@ -205,6 +216,9 @@ public abstract class Criatura extends Actor {
 
     public int getVida() {
         return vida;
+    }
+    public void setVida(int vida){
+        this.vida = vida;
     }
 
     public String getNombre() {

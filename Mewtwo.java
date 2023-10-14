@@ -9,7 +9,7 @@ public class Mewtwo extends Criatura
         private String[] debilidades = {"Normal","Rayo"};
 
     public Mewtwo(String nombre, boolean imagenEspejada) {
-        super(nombre, 200, new String[] { "Puño", "- Golpe Aereo -", "- Paralizador -", "- Psicocorte -" }, imagenEspejada,
+        super(nombre, 10, new String[] { "Puño", "- Golpe Aereo -", "- Paralizador -", "- Psicocorte -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Realiza una patada voladora", "Cancela 2 turnos del rival ",
                 "Quita entre 20-30 de daño con un 10% de golpe critico " },4,"Mistico");
         super.setDefensa(this.defensa);
