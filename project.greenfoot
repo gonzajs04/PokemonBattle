@@ -1,6 +1,7 @@
 #Greenfoot project file
 class.Charmander.image=Charmander.png
 class.Mewtwo.image=Mewtwo.png
+class.PantallaDuelo.image=fondo2.png
 class.Pikachu.image=Pikachu.png
 class.Squirtle.image=Squirtle.png
 dependency1.from=PantallaDuelo
@@ -117,10 +118,10 @@ dependency8.type=UsesDependency
 dependency9.from=UIAtaques
 dependency9.to=Texto
 dependency9.type=UsesDependency
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
+editor.fx.0.height=1056
+editor.fx.0.width=1936
+editor.fx.0.x=-8
+editor.fx.0.y=-8
 height=1045
 package.numDependencies=38
 package.numTargets=30

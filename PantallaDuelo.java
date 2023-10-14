@@ -20,7 +20,7 @@ public class PantallaDuelo extends World {
         uiAtaques = new UIAtaques(criaturas);
         addObject(uiAtaques, 350, 300);
 
-        GreenfootImage imagenFondo = new GreenfootImage("fondo.png");
+        GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); //SE CAMBIA EL FONDO
         getBackground().drawImage(imagenFondo, 0, 0);
 
         ronda();
