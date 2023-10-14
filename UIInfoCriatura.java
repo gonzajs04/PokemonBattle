@@ -18,9 +18,9 @@ public class UIInfoCriatura extends Actor {
     }
 
     public void actualizar() {
-        GreenfootImage imagenNombre = new GreenfootImage(criatura.toString(), 20, Color.BLACK, null);
+        GreenfootImage imagenNombre = new GreenfootImage(criatura.toString(), 20, Color.WHITE, null);
         GreenfootImage imagenVida = new GreenfootImage(
-                " " + criatura.getVida() + " / " + criatura.getVidaMaxima() + " ", 20, Color.BLACK, null);
+                " " + criatura.getVida() + " / " + criatura.getVidaMaxima() + " ", 20, Color.WHITE, null);
 
         double barraWidth = width - MARGIN * 2.5;
         GreenfootImage imagenBarra = new GreenfootImage(width - MARGIN * 2, 12);
