@@ -119,6 +119,9 @@ public abstract class Criatura extends Actor {
         this.estaDesmayado = desmayado;
 
     }
+    public boolean getEstaDesmayado(){
+        return this.estaDesmayado;
+    }
 
     public void setEstaParalizado(Criatura nombre) {
         this.estaParalizado = true;
@@ -144,33 +147,35 @@ public abstract class Criatura extends Actor {
     }
 
 
-    protected int recibirDaño(Criatura atacante, Ataque ataque) {
-       if(verificarVidaOponente()){
+    protected int atacar(Criatura otro, Ataque ataque) {
+
+       if(verificarVidaOponente(otro)){
          Random rand = new Random();
         double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
         double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
-        double daño = 2 * (1 + (atacante.ataqueAtributo / atacante.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
+        double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
 
         double dañoFinal = Math.round(daño);
-        if (this.vida > 0) {
-            this.vida -= dañoFinal;
-            System.out.println("El pokemon " + atacante.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
-            + dañoFinal + " de vida a " + this.getNombre());
-            uiInfoCriatura.actualizar();
+      
+        otro.vida -= dañoFinal;
+        System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
+        + dañoFinal + " de vida a " + otro.getNombre());
 
-            return this.vida;
-        }
+        
+        
     
        }
-        return 0;
+        otro.uiInfoCriatura.actualizar(); //Actualizo la info de segun esten atacando
+        return otro.vida;
     }
 
-    public boolean verificarVidaOponente(){
-        if(this.getVida()>0){
+    public boolean verificarVidaOponente(Criatura otro){
+        if(otro.getVida()>0){
             return true;
         }
-        this.setVida(0);
+        otro.setVida(0);
+        otro.setEstaDesmayado(true);
         return false;
     }
 

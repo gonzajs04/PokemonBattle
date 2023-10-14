@@ -53,10 +53,10 @@ public class PantallaDuelo extends World {
     }
 
     public void click(Criatura c) {
-        if(c.getVida()>0){
-            uiAtaques.click(c);
-           uiAtaques.asignarCriaturaActual(c); //CAMBIAMOS EL PERSONAJE CADA VEZ QUE HACEMOS CLICK
-        }
+   
+           uiAtaques.click(c);
+          
+        
     } 
 
     public void hover(Criatura c) {
