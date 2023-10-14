@@ -115,8 +115,8 @@ public abstract class Criatura extends Actor {
         this.ataqueAtributo = ataque;
     }
 
-    public void setEstaDesmayado(Criatura nombre) {
-        this.estaDesmayado = true;
+    public void setEstaDesmayado(boolean desmayado) {
+        this.estaDesmayado = desmayado;
 
     }
 
@@ -143,13 +143,6 @@ public abstract class Criatura extends Actor {
         setImage(nuevaImagen);
     }
 
-    public void atacarCriatura(Criatura otro, Ataque ataque) {
-        if (otro.getVida() <= 0) {
-            otro.setEstaDesmayado(this);
-        } else {
-            otro.recibirDaño(this, ataque); //BTNREAC
-        }
-    }
 
     protected int recibirDaño(Criatura atacante, Ataque ataque) {
        if(verificarVidaOponente()){
