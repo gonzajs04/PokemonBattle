@@ -149,18 +149,18 @@ public abstract class Criatura extends Actor {
 
     protected int atacar(Criatura otro, Ataque ataque) {
 
-       if(verificarVidaOponente(otro)){
-         Random rand = new Random();
-        double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-
-        double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
-        double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
-
-        double dañoFinal = Math.round(daño);
-      
-        otro.vida -= dañoFinal;
-        System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
-        + dañoFinal + " de vida a " + otro.getNombre());
+       if(!this.estaDesmayado && verificarVidaOponente(otro)){
+             Random rand = new Random();
+            double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
+    
+            double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
+            double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
+    
+            double dañoFinal = Math.round(daño);
+          
+            otro.vida -= dañoFinal;
+            System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
+            + dañoFinal + " de vida a " + otro.getNombre());
 
         
         
@@ -176,6 +176,7 @@ public abstract class Criatura extends Actor {
         }
         otro.setVida(0);
         otro.setEstaDesmayado(true);
+        System.out.println("El pokemon "+otro.getNombre() + " Se desmayo, no se podra utilizar a partir de ahora" );
         return false;
     }
 
