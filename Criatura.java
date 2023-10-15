@@ -152,11 +152,12 @@ public abstract class Criatura extends Actor {
        if(!this.estaDesmayado && verificarVidaOponente(otro)){
              Random rand = new Random();
             double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-    
+       
             double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
             double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
-    
-            double dañoFinal = Math.round(daño);
+            double dañoGolpeCritico = verificarGolpeCritico(daño,ataque);
+            
+            double dañoFinal = Math.round(daño) + dañoGolpeCritico;
           
             otro.vida -= dañoFinal;
             System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
@@ -167,6 +168,22 @@ public abstract class Criatura extends Actor {
         return otro.vida;
     }
 
+    public double verificarGolpeCritico(double daño,  Ataque ataque){
+        double posibleCritico = 0;
+        double golpeCritico = 0; //LO ESTABLEZCO EN 0 POR SI NO HAY GOLPE CRITICO
+        Random rd = new Random();
+        posibleCritico = rd.nextInt(101); //Calculo un random del 0 al 100 pra el golpe critico
+        if(ataque.getProbabilidadGolpeCritico()>posibleCritico){ //Si el random es menor que la probabiliad del critico del ataque, se genera el GolpeCritico
+           golpeCritico = calcularGolpeCritico(daño,ataque);
+           System.out.println("Se produjo un golpe critico de "+ this.getNombre());
+        }
+        return golpeCritico;
+    }
+    
+    public double calcularGolpeCritico(double daño, Ataque ataque){
+        return daño+(daño*0.5);
+    }
+    
     public boolean verificarVidaOponente(Criatura otro){
         if(otro.getVida()>0){
             return true;

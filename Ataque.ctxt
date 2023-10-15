@@ -1,15 +1,17 @@
 #BlueJ class context
 comment0.target=Ataque
-comment1.params=nombre\ da\u00F1oMin\ da\u00F1oMax\ tipo\ cantEnergiaNecesaria
-comment1.target=Ataque(java.lang.String,\ int,\ int,\ java.lang.String,\ int)
+comment1.params=nombre\ da\u00F1oMin\ da\u00F1oMax\ tipo\ cantEnergiaNecesaria\ probabilidadGolpeCritico
+comment1.target=Ataque(java.lang.String,\ int,\ int,\ java.lang.String,\ int,\ int)
 comment2.params=
 comment2.target=int\ getDa\u00F1oMin()
 comment3.params=
-comment3.target=int\ getDa\u00F1oMax()
+comment3.target=int\ getProbabilidadGolpeCritico()
 comment4.params=
-comment4.target=int\ getEnergiaNecesaria()
+comment4.target=int\ getDa\u00F1oMax()
 comment5.params=
-comment5.target=java.lang.String\ getTipo()
+comment5.target=int\ getEnergiaNecesaria()
 comment6.params=
-comment6.target=java.lang.String\ getNombre()
-numComments=7
+comment6.target=java.lang.String\ getTipo()
+comment7.params=
+comment7.target=java.lang.String\ getNombre()
+numComments=8

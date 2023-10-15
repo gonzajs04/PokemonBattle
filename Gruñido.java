@@ -5,7 +5,7 @@ public class Gruñido extends Ataque {
     private int ataqueReducido = 1;
 
     public Gruñido(){
-        super("Gruñido",0,0,"Normal",15);
+        super("Gruñido",0,0,"Normal",15,2);
     }
     public int ataqueReducido(){
         return ataqueReducido;
