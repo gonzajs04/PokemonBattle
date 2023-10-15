@@ -26,8 +26,8 @@ public abstract class Criatura extends Actor {
     private int defensa;
     private int ataqueAtributo;
     private String [] debilidades;
-    private boolean isResistente = false;
-    private boolean tieneDebilidad = false;
+    // private boolean isResistente = false;
+    // private boolean tieneDebilidad = false;
     private String tipo;
 
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
