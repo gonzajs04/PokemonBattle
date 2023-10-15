@@ -41,7 +41,7 @@ public class UIAtaques extends Actor {
         botonSeleccionado = null;
         ataque = null;
         resetColorBotones();
-        criaturaActual.setVisualSeleccionado(true);
+        criaturaActual.setVisualSeleccionado(true); //cambia color del pokemon contorno
         dibujarFondo();
 
         Boton[] botones = { b1, b2, b3, b4 };

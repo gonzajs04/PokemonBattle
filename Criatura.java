@@ -161,9 +161,6 @@ public abstract class Criatura extends Actor {
             otro.vida -= dañoFinal;
             System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
             + dañoFinal + " de vida a " + otro.getNombre());
-
-        
-        
     
        }
         otro.uiInfoCriatura.actualizar(); //Actualizo la info de segun esten atacando
