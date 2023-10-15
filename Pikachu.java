@@ -28,10 +28,6 @@ public class Pikachu extends Criatura {
     public int getDefensa(){
         return this.defensa;
     }
-   /* public void atacar(Criatura otro) {
-       
-        
-    }*/
 
     public boolean puedeRealizarAtaque2En(Criatura otro) {
         return !esDelMismoEquipoQue(otro);

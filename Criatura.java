@@ -20,9 +20,7 @@ public abstract class Criatura extends Actor {
     private boolean visualSeleccionado;
     private boolean estaParalizado;
     private boolean estaDesmayado;
-    private boolean estaDesmayado2;
-    private boolean estaDesmayado3;
-    private boolean estaAtacando = false;
+    // private boolean estaAtacando = false;
     private final MyGreenfootImage imagenOriginal;
     private int velocidad;
     private int defensa;
@@ -95,13 +93,13 @@ public abstract class Criatura extends Actor {
         }
     }
 
-    public boolean getEstaAtacando() {
-        return estaAtacando;
-    }
+    // public boolean getEstaAtacando() {
+    //     return estaAtacando;
+    // }
 
-    public void setEstaAtacando(boolean estaAtacando) {
-        this.estaAtacando = estaAtacando;
-    }
+    // public void setEstaAtacando(boolean estaAtacando) {
+    //     this.estaAtacando = estaAtacando;
+    // }
 
     public void setDefensa(int defensa) {
         this.defensa = defensa;
@@ -150,12 +148,12 @@ public abstract class Criatura extends Actor {
     protected int atacar(Criatura otro, Ataque ataque) {
 
        if(!this.estaDesmayado && verificarVidaOponente(otro)){
-             Random rand = new Random();
+            Random rand = new Random();
             double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
        
-            double factor = verificarFactorCriatura(this,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
+            double factor = verificarFactorCriatura(otro,ataque); //LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
             double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) *factor* numeroAleatorio); // FALTA EL FACTOR TIPO
-            double dañoGolpeCritico = verificarGolpeCritico(daño,ataque);
+            double dañoGolpeCritico = verificarGolpeCritico(daño,ataque); //VERIFICO SI CABE LA POSIBILIDAD DE TENER UN GOLPE CRITICO
             
             double dañoFinal = Math.round(daño) + dañoGolpeCritico;
           
@@ -164,7 +162,7 @@ public abstract class Criatura extends Actor {
             + dañoFinal + " de vida a " + otro.getNombre());
     
        }
-        otro.uiInfoCriatura.actualizar(); //Actualizo la info de segun esten atacando
+        otro.uiInfoCriatura.actualizar(); //Actualizo la info del rival
         return otro.vida;
     }
 
@@ -174,13 +172,13 @@ public abstract class Criatura extends Actor {
         Random rd = new Random();
         posibleCritico = rd.nextInt(101); //Calculo un random del 0 al 100 pra el golpe critico
         if(ataque.getProbabilidadGolpeCritico()>posibleCritico){ //Si el random es menor que la probabiliad del critico del ataque, se genera el GolpeCritico
-           golpeCritico = calcularGolpeCritico(daño,ataque);
+           golpeCritico = calcularGolpeCritico(daño);
            System.out.println("Se produjo un golpe critico de "+ this.getNombre());
         }
         return golpeCritico;
     }
     
-    public double calcularGolpeCritico(double daño, Ataque ataque){
+    public double calcularGolpeCritico(double daño){
         return daño+(daño*0.5);
     }
     
