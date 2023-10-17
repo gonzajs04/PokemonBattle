@@ -5,8 +5,8 @@ public class PantallaDuelo extends World {
     private Texto turnoTexto;
     private UIAtaques uiAtaques;
     private Criatura[] criaturas = new Criatura[4];
-    private Criatura[] equipo1 = new Criatura[2];
-    private Criatura[] equipo2 = new Criatura[2];
+    // private Criatura[] equipo1 = new Criatura[2];
+    // private Criatura[] equipo2 = new Criatura[2];
 
 
     private int ronda = 0;
@@ -18,7 +18,7 @@ public class PantallaDuelo extends World {
 
         agregarCriaturas();
 
-        turnoTexto = new Texto("Ronda 1 | Turno 1", 20, Color.BLACK, Color.WHITE);
+        turnoTexto = new Texto("Ronda " + ronda +" | " + "Turno " + turno, 20, Color.BLACK, Color.WHITE);
         addObject(turnoTexto, turnoTexto.getImage().getWidth() / 2, turnoTexto.getImage().getHeight() / 2);
 
         uiAtaques = new UIAtaques(criaturas);
@@ -41,22 +41,22 @@ public class PantallaDuelo extends World {
         addObject(criaturas[3], 600, 80);
     }
     
-     private void asignarEquipos(){
-          int contEq1 = 0; //DECLARO ESTAS 2 VARIABLES PARA LLEGAR AL LIMITE DE INTEGRANTE POR EQUIPO, LA CUAL ES 2. SI USO I, ME LLEVARA AL INDICE POR ENCIMA DE 2 Y NOS DARA ERROR
-          int contEq2 = 0;
-         for(int i = 0; i<criaturas.length; i++){
-             if(criaturas[i].getEquipo()){ //DETERMINO SI ES DEL EQUIPO 1
-                 equipo1[contEq1] = criaturas[i]; //SI ES DEL EQUIPO 1 LE ASIGNO LA CRIATURA
-                 contEq1++; //SUMO EL CONTADOR
-            }else{
-                equipo2[contEq2] = criaturas[i];
-                 contEq2++;  
+    //  private void asignarEquipos(){
+    //       int contEq1 = 0; //DECLARO ESTAS 2 VARIABLES PARA LLEGAR AL LIMITE DE INTEGRANTE POR EQUIPO, LA CUAL ES 2. SI USO I, ME LLEVARA AL INDICE POR ENCIMA DE 2 Y NOS DARA ERROR
+    //       int contEq2 = 0;
+    //      for(int i = 0; i<criaturas.length; i++){
+    //          if(criaturas[i].getEquipo()){ //DETERMINO SI ES DEL EQUIPO 1
+    //              equipo1[contEq1] = criaturas[i]; //SI ES DEL EQUIPO 1 LE ASIGNO LA CRIATURA
+    //              contEq1++; //SUMO EL CONTADOR
+    //         }else{
+    //             equipo2[contEq2] = criaturas[i];
+    //              contEq2++;  
 
-             }
-        }
+    //          }
+    //     }
         
 
-     }
+    //  }
 
 
     private void ronda() {
