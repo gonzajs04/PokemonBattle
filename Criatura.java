@@ -155,7 +155,6 @@ public abstract class Criatura extends Actor {
     }
 
     protected int atacar(Criatura otro, Ataque ataque) {
-                        System.out.println(this.getNombre() + " "+ this.estaDesmayado);
 
         if (!this.estaDesmayado && !otro.estaDesmayado) {
             Random rand = new Random();
@@ -170,7 +169,6 @@ public abstract class Criatura extends Actor {
             double dañoFinal = Math.round(daño) + dañoGolpeCritico;
             if(dañoFinal>otro.vida){ //SI EL DAÑO ES MAYOR A LA VIDA DEL RIVAL, QUE SETEE LA VIDA EN 0 PARA QUE ASI NO DE UN NUMERO NEGATIVO
                 otro.setVida(0);
-                System.out.println(otro.getNombre() + " "+ otro.estaDesmayado);
             }else{
                 otro.vida -= dañoFinal;
                   System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
@@ -187,7 +185,21 @@ public abstract class Criatura extends Actor {
     public void desmayar(Criatura otro){
         if(otro.getVida()<=0){
             otro.setEstaDesmayado(true); // SE DESMAYO
+            verificarEquipoIntegranteDesmayado(otro); //VERIFICO LA CANTIDAD DE DESMAYADOS EN LOS EQUIPOS
+
         }
+    }
+    public void verificarEquipoIntegranteDesmayado(Criatura otro){
+        if(otro.getEquipo()){
+            contMuertosEquipo1++; //SI ES DEL EQUIPO 1 QUE SUME LOS MUERTOS DEL EQUIPO 1
+            System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 1");
+        }else{
+            contMuertosEquipo2++; //SI ES DEL EQUIPO 2, QUE SIME LO MUERTOS DEL EQUIPO 2
+            System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 2");
+
+
+        }
+
     }
 
     public double verificarGolpeCritico(double daño, Ataque ataque) {
