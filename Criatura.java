@@ -162,7 +162,7 @@ public abstract class Criatura extends Actor {
 
             double factor = verificarFactorCriatura(otro, ataque); // LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA
                                                                    // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
-            double daño = 2 * (1 + (otro.ataqueAtributo / otro.defensa) * factor * numeroAleatorio); // FALTA EL FACTOR
+            double daño = 2 * (1 + (this.ataqueAtributo / this.defensa) * factor * numeroAleatorio); // FALTA EL FACTOR
                                                                                                      // TIPO
             double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); // VERIFICO SI CABE LA POSIBILIDAD DE TENER
                                                                            // UN GOLPE CRITICO
@@ -173,10 +173,7 @@ public abstract class Criatura extends Actor {
                 otro.vida -= dañoFinal;
                   System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
                     + dañoFinal + " de vida a " + otro.getNombre());
-
             }
-
-
         }
         desmayar(otro); //UNA VEZ VERIFICADA LA VIDA, VERIFICO SI EL POKEMON ESTA LISTO PARA DESMAYARSE
         otro.uiInfoCriatura.actualizar(); // Actualizo la info del rival
