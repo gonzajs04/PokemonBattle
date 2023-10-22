@@ -1,42 +1,32 @@
 import java.lang.*;
 import java.util.*;
-
 import greenfoot.*;
 
 public abstract class Criatura extends Actor {
     protected final String nombre;
     protected final int vidaMaxima;
-
     protected final String[] nombresAtaque;
     protected final String[] detallesAtaque;
     private Ataque[] ataques;
     protected final boolean equipo1;
-
     protected int vida;
-
     private UIInfoCriatura uiInfoCriatura;
     private int cantAtaques;
     private boolean visualHover;
     private boolean visualSeleccionado;
     private boolean estaParalizado;
     private boolean estaDesmayado;
-    // private boolean estaAtacando = false;
-    private final MyGreenfootImage imagenOriginal;
+    private  MyGreenfootImage imagenOriginal;
     private int velocidad;
     private int defensa;
     private int ataqueAtributo;
     private String[] debilidades;
-    // private boolean isResistente = false;
-    // private boolean tieneDebilidad = false;
     private String tipo;
-    
     private static int contMuertosEquipo1 = 0;
     private static int contMuertosEquipo2 = 0;
-
-  
-
+    private String imagenPokemonMuerto;
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
-            int cantAtaques, String tipo) {
+        int cantAtaques, String tipo, String imagenPokemonMuerto) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -50,6 +40,7 @@ public abstract class Criatura extends Actor {
         this.imagenOriginal = new MyGreenfootImage(getImage());
         this.imagenOriginal.scale(130, 130);
         this.uiInfoCriatura = new UIInfoCriatura(this);
+        this.imagenPokemonMuerto = imagenPokemonMuerto;
         crearArrayDeAtaques();
     }
 
@@ -61,8 +52,20 @@ public abstract class Criatura extends Actor {
         return this.tipo;
     }
 
-   
 
+    public static int getContadorEquipo1(){
+        return contMuertosEquipo1;
+    }
+    public static int getContadorEquipo2(){
+        return contMuertosEquipo2;
+    }
+    
+      public static void setContadorEquipo1(int valor){
+         contMuertosEquipo1 = valor;
+    }
+    public static void setContadorEquipo2(int valor){
+        contMuertosEquipo2 = valor;
+    }
     
 
     @Override
@@ -101,14 +104,6 @@ public abstract class Criatura extends Actor {
             render();
         }
     }
-
-    // public boolean getEstaAtacando() {
-    // return estaAtacando;
-    // }
-
-    // public void setEstaAtacando(boolean estaAtacando) {
-    // this.estaAtacando = estaAtacando;
-    // }
 
     public void setDefensa(int defensa) {
         this.defensa = defensa;
@@ -183,19 +178,21 @@ public abstract class Criatura extends Actor {
         if(otro.getVida()<=0){
             otro.setEstaDesmayado(true); // SE DESMAYO
             verificarEquipoIntegranteDesmayado(otro); //VERIFICO LA CANTIDAD DE DESMAYADOS EN LOS EQUIPOS
-
+         
         }
     }
     public void verificarEquipoIntegranteDesmayado(Criatura otro){
         if(otro.getEquipo()){
             contMuertosEquipo1++; //SI ES DEL EQUIPO 1 QUE SUME LOS MUERTOS DEL EQUIPO 1
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 1");
+          
         }else{
             contMuertosEquipo2++; //SI ES DEL EQUIPO 2, QUE SIME LO MUERTOS DEL EQUIPO 2
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 2");
-
-
-        }
+        }     
+        GreenfootImage miImagen = new GreenfootImage(otro.imagenPokemonMuerto); // ME LO CONVIERTE A TIPO GREENFOOT IMAGE
+        otro.imagenOriginal = new MyGreenfootImage(miImagen); //LE SETEA LA IMAGEN DE TIPO GREENFOOTIMAGE
+        otro.imagenOriginal.scale(130,130);
 
     }
 
@@ -314,7 +311,6 @@ public abstract class Criatura extends Actor {
     public String getStats() {
         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
                 " - Ataque: " + this.ataqueAtributo + "\n" +
-
                 " - Defensa: " + getDefensa() + "\n" +
                 " - Velocidad: " + getVelocidad() + "\n" +
                 "- Debilidades: " + Arrays.toString(getDebilidades()); // Las convierto para mostrarlas como texto

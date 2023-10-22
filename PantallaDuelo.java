@@ -7,12 +7,8 @@ public class PantallaDuelo extends World {
     private Criatura[] criaturas = new Criatura[4];
     // private Criatura[] equipo1 = new Criatura[2];
     // private Criatura[] equipo2 = new Criatura[2];
-
-
     private int ronda = 0;
     private int turno = 0;
-
-
     public PantallaDuelo() {
         super(700, 400, 1);
 
@@ -25,8 +21,7 @@ public class PantallaDuelo extends World {
         addObject(uiAtaques, 350, 300);
 
         GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); //SE CAMBIA EL FONDO
-        getBackground().drawImage(imagenFondo, 0, 0);
-
+        getBackground().drawImage(imagenFondo, 0, 0);        
         ronda();
     }
 
@@ -41,27 +36,15 @@ public class PantallaDuelo extends World {
         addObject(criaturas[3], 600, 80);
     }
     
-    //  private void asignarEquipos(){
-    //       int contEq1 = 0; //DECLARO ESTAS 2 VARIABLES PARA LLEGAR AL LIMITE DE INTEGRANTE POR EQUIPO, LA CUAL ES 2. SI USO I, ME LLEVARA AL INDICE POR ENCIMA DE 2 Y NOS DARA ERROR
-    //       int contEq2 = 0;
-    //      for(int i = 0; i<criaturas.length; i++){
-    //          if(criaturas[i].getEquipo()){ //DETERMINO SI ES DEL EQUIPO 1
-    //              equipo1[contEq1] = criaturas[i]; //SI ES DEL EQUIPO 1 LE ASIGNO LA CRIATURA
-    //              contEq1++; //SUMO EL CONTADOR
-    //         }else{
-    //             equipo2[contEq2] = criaturas[i];
-    //              contEq2++;  
-
-    //          }
-    //     }
-        
-
-    //  }
-
-
     private void ronda() {
-        ronda++;
-        turno();
+        if(Criatura.getContadorEquipo1() == 2 || Criatura.getContadorEquipo2() ==2){
+           System.out.println("Hay un ganador");
+            Criatura.setContadorEquipo1(0);
+            Criatura.setContadorEquipo2(0);
+       }else{
+           ronda++;
+           //turno();
+       }
     }
 
     public void turno() {
@@ -69,7 +52,6 @@ public class PantallaDuelo extends World {
         for (int i = 0; i < criaturas.length; i++) {
             criaturas[i].setVisualSeleccionado(false);
         }
-
         turnoTexto.actualizarTexto("Ronda " + ronda + " | Turno " + turno);
         uiAtaques.asignarCriaturaActual(criaturas[0]);
     }
@@ -78,6 +60,7 @@ public class PantallaDuelo extends World {
         if(!c.getEstaDesmayado()){
            uiAtaques.click(c);
            uiAtaques.asignarCriaturaActual(c); //CAMBIAMOS EL PERSONAJE CADA VEZ QUE HACEMOS CLICK
+          ronda();
         }
     } 
 
