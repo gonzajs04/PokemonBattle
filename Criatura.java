@@ -179,9 +179,6 @@ public abstract class Criatura extends Actor {
                 int random = this.randomParalizador.nextInt(2)+1;
                 otro.setEstaParalizado(true);
                 generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
-
-                
-                
                 
             }
         }
