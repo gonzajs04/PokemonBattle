@@ -28,7 +28,7 @@ public abstract class Criatura extends Actor {
     private String imagenPokemonMuerto;
     private String imagenPokemonParalizado;
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
-        int cantAtaques, String tipo, String imagenPokemonMuerto, String imagenPokemonParalizado) {
+    int cantAtaques, String tipo, String imagenPokemonMuerto, String imagenPokemonParalizado) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -46,7 +46,6 @@ public abstract class Criatura extends Actor {
         this.imagenPokemonParalizado = imagenPokemonParalizado;
         crearArrayDeAtaques();
     }
-    
 
     @Override
     protected void addedToWorld(World world) {
@@ -55,7 +54,7 @@ public abstract class Criatura extends Actor {
         getWorld().addObject(uiInfoCriatura, getX(), getY());
         // Una vez en el mundo, actualizo segun su tamaño
         uiInfoCriatura.setLocation(getX(),
-                getY() + getImage().getHeight() / 2 - /* Sombra */ 10 + uiInfoCriatura.getImage().getHeight() / 2);
+            getY() + getImage().getHeight() / 2 - /* Sombra */ 10 + uiInfoCriatura.getImage().getHeight() / 2);
     }
 
     public void act() {
@@ -109,10 +108,12 @@ public abstract class Criatura extends Actor {
     public void setEstaParalizado(boolean estaParalizado) {
         this.estaParalizado = estaParalizado;
     }
+
     public boolean getEstaParalizado(){
         return this.estaParalizado;
     }
-     public Ataque[] getAtaques() {
+
+    public Ataque[] getAtaques() {
         return this.ataques;
     }
 
@@ -123,32 +124,34 @@ public abstract class Criatura extends Actor {
     public static int getContadorEquipo1(){
         return contMuertosEquipo1;
     }
+
     public static int getContadorEquipo2(){
         return contMuertosEquipo2;
     }
-    
-      public static void setContadorEquipo1(int valor){
-         contMuertosEquipo1 = valor;
+
+    public static void setContadorEquipo1(int valor){
+        contMuertosEquipo1 = valor;
     }
+
     public static void setContadorEquipo2(int valor){
         contMuertosEquipo2 = valor;
     }
 
     public void render() {
         MyGreenfootImage nuevaImagen = new MyGreenfootImage(imagenOriginal) {
-            public void configurar() {
-                if (!equipo1) {
-                    flipHorizontally();
+                public void configurar() {
+                    if (!equipo1) {
+                        flipHorizontally();
+                    }
+                    if (visualHover) {
+                        scaleToRatio(1.15);
+                    }
+                    if (visualSeleccionado) {
+                        highlight();
+                    }
+                    shadow();
                 }
-                if (visualHover) {
-                    scaleToRatio(1.15);
-                }
-                if (visualSeleccionado) {
-                    highlight();
-                }
-                shadow();
-            }
-        };
+            };
 
         setImage(nuevaImagen);
     }
@@ -159,62 +162,63 @@ public abstract class Criatura extends Actor {
             if(!ataque.getNombre().equals("Paralizador")){
                 Random rand = new Random();
                 double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-    
+
                 double factor = verificarFactorCriatura(otro, ataque); // LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA
-                                                                       // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
+                // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
                 double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); // FALTA EL FACTOR
-                                                                                                         // TIPO
+                // TIPO
                 double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); // VERIFICO SI CABE LA POSIBILIDAD DE TENER
-                                                                               // UN GOLPE CRITICO
+                // UN GOLPE CRITICO
                 double dañoFinal = Math.round(daño) + dañoGolpeCritico;
                 if(dañoFinal>otro.vida){ //SI EL DAÑO ES MAYOR A LA VIDA DEL RIVAL, QUE SETEE LA VIDA EN 0 PARA QUE ASI NO DE UN NUMERO NEGATIVO
                     otro.setVida(0);
                 }else{
                     otro.vida -= dañoFinal;
-                      System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
+                    System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
                         + dañoFinal + " de vida a " + otro.getNombre());
                 }
             }else{
-                this.randomParalizador = new Random();
-                int random = this.randomParalizador.nextInt(2)+1;
-                otro.setEstaParalizado(true);
-                generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
-                
+                if(!ataque.getSeHizoUso()){ //SI NO HIZO USO DE PARALIZADOR, QUE LO PUEDA USAR
+                    this.randomParalizador = new Random();
+                    int random = this.randomParalizador.nextInt(2)+1;
+                    otro.setEstaParalizado(true);
+                    ataque.setSeHizoUso(true);
+                    generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
+                }
+
             }
         }
         verificarPosibilidadDesmayo(otro); //UNA VEZ VERIFICADA LA VIDA, VERIFICO SI EL POKEMON ESTA LISTO PARA DESMAYARSE
         otro.uiInfoCriatura.actualizar(); // Actualizo la info del rival
         return otro.vida;
     }
-    
+
     public void verificarPosibilidadDesmayo(Criatura otro){
         if(otro.getVida()<=0){
             otro.setEstaDesmayado(true); // SE DESMAYO
             verificarEquipoIntegranteDesmayado(otro); //VERIFICO LA CANTIDAD DE DESMAYADOS EN LOS EQUIPOS
         }
     }
-    
+
     public void verificarEquipoIntegranteDesmayado(Criatura otro){
         if(otro.getEquipo()){
             contMuertosEquipo1++; //SI ES DEL EQUIPO 1 QUE SUME LOS MUERTOS DEL EQUIPO 1
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 1");
-          
+
         }else{
             contMuertosEquipo2++; //SI ES DEL EQUIPO 2, QUE SIME LO MUERTOS DEL EQUIPO 2
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 2");
         }     
         generarImagen(otro,otro.imagenPokemonMuerto);
-        
 
     }
-
     public double verificarGolpeCritico(double daño, Ataque ataque) {
         double posibleCritico = 0;
         double golpeCritico = 0; // LO ESTABLEZCO EN 0 POR SI NO HAY GOLPE CRITICO
         Random rd = new Random();
         posibleCritico = rd.nextInt(101); // Calculo un random del 0 al 100 pra el golpe critico
         if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { // Si el random es menor que la probabiliad del
-                                              // critico del ataque, se genera el GolpeCritico
+            // critico del ataque, se genera el GolpeCritico
             golpeCritico = calcularGolpeCritico(daño);
             System.out.println("Se produjo un golpe critico de parte de " + this.getNombre());
         }
@@ -224,14 +228,13 @@ public abstract class Criatura extends Actor {
     public double calcularGolpeCritico(double daño) {
         return daño + (daño * 0.5);
     }
-    
+
     public void generarImagen(Criatura c, String imagenPokemon){
         GreenfootImage miImagen = new GreenfootImage(imagenPokemon); // ME LO CONVIERTE A TIPO GREENFOOT IMAGE
         c.imagenOriginal = new MyGreenfootImage(miImagen); //LE SETEA LA IMAGEN DE TIPO GREENFOOTIMAGE
         c.imagenOriginal.scale(130,130);
     }
 
- 
 
     public double verificarFactorCriatura(Criatura oponente, Ataque ataque) {
         double factor = 1; // EN CASO DE QUE NO TENGA DEBILIDAD EL FACTOR ES 1
@@ -239,13 +242,13 @@ public abstract class Criatura extends Actor {
             if (oponente.getDebilidades()[i] == ataque.getTipo()) { // ME FIJO SI TIENE DEBILIDADES AL ATAQUE
                 // EN CASO DE QUE SI, EL FACTOR EL 1.25
                 System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "
-                        + ataque.getTipo() + " , el daño sera de 1.25 mayor");
+                    + ataque.getTipo() + " , el daño sera de 1.25 mayor");
                 factor = 1.25;
             } else if (oponente.getTipo() == ataque.getTipo()) { // En caso de que no tenga debilidad, me fijo, si es
-                                                                 // tipo del oponente es igual al tipo de ataque. En
-                                                                 // caso de que si, tiene un factor de 0.75
+                // tipo del oponente es igual al tipo de ataque. En
+                // caso de que si, tiene un factor de 0.75
                 System.out.println("El pokemon que estas atacando tiene una resistencia hacia el ataque: "
-                        + ataque.getTipo() + " , el daño sera de 0.75 mayor");
+                    + ataque.getTipo() + " , el daño sera de 0.75 mayor");
 
                 factor = 0.75;
             }
@@ -280,7 +283,6 @@ public abstract class Criatura extends Actor {
         this.vida = vida;
     }
 
-     
     public String getNombre() {
         return this.nombre;
     }
@@ -329,10 +331,10 @@ public abstract class Criatura extends Actor {
 
     public String getStats() {
         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
-                " - Ataque: " + this.ataqueAtributo + "\n" +
-                " - Defensa: " + this.getDefensa() + "\n" +
-                " - Velocidad: " + this.getVelocidad() + "\n" +
-                "- Debilidades: " + Arrays.toString(this.getDebilidades()); // Las convierto para mostrarlas como texto
+        " - Ataque: " + this.ataqueAtributo + "\n" +
+        " - Defensa: " + this.getDefensa() + "\n" +
+        " - Velocidad: " + this.getVelocidad() + "\n" +
+        "- Debilidades: " + Arrays.toString(this.getDebilidades()); // Las convierto para mostrarlas como texto
     }
 
     public void crearArrayDeAtaques() {

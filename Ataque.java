@@ -7,6 +7,7 @@ public class Ataque extends Actor
     private int cantEnergiaNecesaria;
     private String nombre;
     private int probabilidadGolpeCritico;
+    public boolean seHizoUso = false;
     public Ataque(String nombre,int dañoMin,int dañoMax,String tipo, int cantEnergiaNecesaria, int probabilidadGolpeCritico){
         this.dañoMin = dañoMin;
         this.dañoMax = dañoMax;
@@ -14,6 +15,15 @@ public class Ataque extends Actor
         this.tipo = tipo;
         this.cantEnergiaNecesaria = cantEnergiaNecesaria;
         this.probabilidadGolpeCritico = probabilidadGolpeCritico;
+    }
+    
+    
+    public void setSeHizoUso(boolean seHizoUso){
+        this.seHizoUso = seHizoUso;
+    }
+    
+    public boolean getSeHizoUso(){
+        return seHizoUso;
     }
 
     public int getDañoMin(){
