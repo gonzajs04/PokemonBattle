@@ -159,7 +159,7 @@ public abstract class Criatura extends Actor {
     protected int atacar(Criatura otro, Ataque ataque) {
 
         if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
-            if(!ataque.getNombre().equals("Paralizador")){
+            if(!ataque.getNombre().equals("Paralizador") && !ataque.getSeHizoUso()){ 
                 Random rand = new Random();
                 double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
@@ -177,14 +177,13 @@ public abstract class Criatura extends Actor {
                     System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
                         + dañoFinal + " de vida a " + otro.getNombre());
                 }
-            }else{
-                if(!ataque.getSeHizoUso()){ //SI NO HIZO USO DE PARALIZADOR, QUE LO PUEDA USAR
+            }else{ //SI EL ATAQUE ES PARALIZADOR Y NO USO EL ATAQUE DE PARALIZADOR QUE PASE ESTO
                     this.randomParalizador = new Random();
                     int random = this.randomParalizador.nextInt(2)+1;
                     otro.setEstaParalizado(true);
                     ataque.setSeHizoUso(true);
                     generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
-                }
+                
 
             }
         }

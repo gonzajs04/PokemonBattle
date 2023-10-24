@@ -5,8 +5,7 @@ public class PantallaDuelo extends World {
     private Texto turnoTexto;
     private UIAtaques uiAtaques;
     private Criatura[] criaturas = new Criatura[4];
-    // private Criatura[] equipo1 = new Criatura[2];
-    // private Criatura[] equipo2 = new Criatura[2];
+
     private int ronda = 0;
     private int turno = 0;
     public PantallaDuelo() {
