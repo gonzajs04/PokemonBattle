@@ -8,8 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Psicocorte extends Ataque{
 
-    private int probabilidadGolpeCritico = 10;
-
     public Psicocorte(){
         super("Psicocorte",20,30,"Mistico",10,70);
     }

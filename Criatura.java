@@ -24,9 +24,11 @@ public abstract class Criatura extends Actor {
     private String tipo;
     private static int contMuertosEquipo1 = 0;
     private static int contMuertosEquipo2 = 0;
+    private Random randomParalizador;
     private String imagenPokemonMuerto;
+    private String imagenPokemonParalizado;
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
-        int cantAtaques, String tipo, String imagenPokemonMuerto) {
+        int cantAtaques, String tipo, String imagenPokemonMuerto, String imagenPokemonParalizado) {
         this.nombre = nombre;
         this.vidaMaxima = vida;
         this.nombresAtaque = nombresAtaque;
@@ -41,30 +43,8 @@ public abstract class Criatura extends Actor {
         this.imagenOriginal.scale(130, 130);
         this.uiInfoCriatura = new UIInfoCriatura(this);
         this.imagenPokemonMuerto = imagenPokemonMuerto;
+        this.imagenPokemonParalizado = imagenPokemonParalizado;
         crearArrayDeAtaques();
-    }
-
-    public Ataque[] getAtaques() {
-        return this.ataques;
-    }
-
-    public String getTipo() {
-        return this.tipo;
-    }
-
-
-    public static int getContadorEquipo1(){
-        return contMuertosEquipo1;
-    }
-    public static int getContadorEquipo2(){
-        return contMuertosEquipo2;
-    }
-    
-      public static void setContadorEquipo1(int valor){
-         contMuertosEquipo1 = valor;
-    }
-    public static void setContadorEquipo2(int valor){
-        contMuertosEquipo2 = valor;
     }
     
 
@@ -126,8 +106,32 @@ public abstract class Criatura extends Actor {
         return this.estaDesmayado;
     }
 
-    public void setEstaParalizado(Criatura nombre) {
-        this.estaParalizado = true;
+    public void setEstaParalizado(boolean estaParalizado) {
+        this.estaParalizado = estaParalizado;
+    }
+    public boolean getEstaParalizado(){
+        return this.estaParalizado;
+    }
+     public Ataque[] getAtaques() {
+        return this.ataques;
+    }
+
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public static int getContadorEquipo1(){
+        return contMuertosEquipo1;
+    }
+    public static int getContadorEquipo2(){
+        return contMuertosEquipo2;
+    }
+    
+      public static void setContadorEquipo1(int valor){
+         contMuertosEquipo1 = valor;
+    }
+    public static void setContadorEquipo2(int valor){
+        contMuertosEquipo2 = valor;
     }
 
     public void render() {
@@ -151,36 +155,48 @@ public abstract class Criatura extends Actor {
 
     protected int atacar(Criatura otro, Ataque ataque) {
 
-        if (!this.estaDesmayado && !otro.estaDesmayado) {
-            Random rand = new Random();
-            double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-
-            double factor = verificarFactorCriatura(otro, ataque); // LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA
-                                                                   // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
-            double daño = 2 * (1 + (this.ataqueAtributo / this.defensa) * factor * numeroAleatorio); // FALTA EL FACTOR
-                                                                                                     // TIPO
-            double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); // VERIFICO SI CABE LA POSIBILIDAD DE TENER
-                                                                           // UN GOLPE CRITICO
-            double dañoFinal = Math.round(daño) + dañoGolpeCritico;
-            if(dañoFinal>otro.vida){ //SI EL DAÑO ES MAYOR A LA VIDA DEL RIVAL, QUE SETEE LA VIDA EN 0 PARA QUE ASI NO DE UN NUMERO NEGATIVO
-                otro.setVida(0);
+        if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
+            if(!ataque.getNombre().equals("Paralizador")){
+                Random rand = new Random();
+                double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
+    
+                double factor = verificarFactorCriatura(otro, ataque); // LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA
+                                                                       // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
+                double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); // FALTA EL FACTOR
+                                                                                                         // TIPO
+                double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); // VERIFICO SI CABE LA POSIBILIDAD DE TENER
+                                                                               // UN GOLPE CRITICO
+                double dañoFinal = Math.round(daño) + dañoGolpeCritico;
+                if(dañoFinal>otro.vida){ //SI EL DAÑO ES MAYOR A LA VIDA DEL RIVAL, QUE SETEE LA VIDA EN 0 PARA QUE ASI NO DE UN NUMERO NEGATIVO
+                    otro.setVida(0);
+                }else{
+                    otro.vida -= dañoFinal;
+                      System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
+                        + dañoFinal + " de vida a " + otro.getNombre());
+                }
             }else{
-                otro.vida -= dañoFinal;
-                  System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
-                    + dañoFinal + " de vida a " + otro.getNombre());
+                this.randomParalizador = new Random();
+                int random = this.randomParalizador.nextInt(2)+1;
+                otro.setEstaParalizado(true);
+                generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
+
+                
+                
+                
             }
         }
-        desmayar(otro); //UNA VEZ VERIFICADA LA VIDA, VERIFICO SI EL POKEMON ESTA LISTO PARA DESMAYARSE
+        verificarPosibilidadDesmayo(otro); //UNA VEZ VERIFICADA LA VIDA, VERIFICO SI EL POKEMON ESTA LISTO PARA DESMAYARSE
         otro.uiInfoCriatura.actualizar(); // Actualizo la info del rival
         return otro.vida;
     }
-    public void desmayar(Criatura otro){
+    
+    public void verificarPosibilidadDesmayo(Criatura otro){
         if(otro.getVida()<=0){
             otro.setEstaDesmayado(true); // SE DESMAYO
             verificarEquipoIntegranteDesmayado(otro); //VERIFICO LA CANTIDAD DE DESMAYADOS EN LOS EQUIPOS
-         
         }
     }
+    
     public void verificarEquipoIntegranteDesmayado(Criatura otro){
         if(otro.getEquipo()){
             contMuertosEquipo1++; //SI ES DEL EQUIPO 1 QUE SUME LOS MUERTOS DEL EQUIPO 1
@@ -190,9 +206,8 @@ public abstract class Criatura extends Actor {
             contMuertosEquipo2++; //SI ES DEL EQUIPO 2, QUE SIME LO MUERTOS DEL EQUIPO 2
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 2");
         }     
-        GreenfootImage miImagen = new GreenfootImage(otro.imagenPokemonMuerto); // ME LO CONVIERTE A TIPO GREENFOOT IMAGE
-        otro.imagenOriginal = new MyGreenfootImage(miImagen); //LE SETEA LA IMAGEN DE TIPO GREENFOOTIMAGE
-        otro.imagenOriginal.scale(130,130);
+        generarImagen(otro,otro.imagenPokemonMuerto);
+        
 
     }
 
@@ -202,7 +217,7 @@ public abstract class Criatura extends Actor {
         Random rd = new Random();
         posibleCritico = rd.nextInt(101); // Calculo un random del 0 al 100 pra el golpe critico
         if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { // Si el random es menor que la probabiliad del
-                                                                     // critico del ataque, se genera el GolpeCritico
+                                              // critico del ataque, se genera el GolpeCritico
             golpeCritico = calcularGolpeCritico(daño);
             System.out.println("Se produjo un golpe critico de parte de " + this.getNombre());
         }
@@ -211,6 +226,12 @@ public abstract class Criatura extends Actor {
 
     public double calcularGolpeCritico(double daño) {
         return daño + (daño * 0.5);
+    }
+    
+    public void generarImagen(Criatura c, String imagenPokemon){
+        GreenfootImage miImagen = new GreenfootImage(imagenPokemon); // ME LO CONVIERTE A TIPO GREENFOOT IMAGE
+        c.imagenOriginal = new MyGreenfootImage(miImagen); //LE SETEA LA IMAGEN DE TIPO GREENFOOTIMAGE
+        c.imagenOriginal.scale(130,130);
     }
 
  
@@ -262,6 +283,7 @@ public abstract class Criatura extends Actor {
         this.vida = vida;
     }
 
+     
     public String getNombre() {
         return this.nombre;
     }
@@ -311,9 +333,9 @@ public abstract class Criatura extends Actor {
     public String getStats() {
         return nombre + " (" + this.getClass().getSimpleName() + ")\n" +
                 " - Ataque: " + this.ataqueAtributo + "\n" +
-                " - Defensa: " + getDefensa() + "\n" +
-                " - Velocidad: " + getVelocidad() + "\n" +
-                "- Debilidades: " + Arrays.toString(getDebilidades()); // Las convierto para mostrarlas como texto
+                " - Defensa: " + this.getDefensa() + "\n" +
+                " - Velocidad: " + this.getVelocidad() + "\n" +
+                "- Debilidades: " + Arrays.toString(this.getDebilidades()); // Las convierto para mostrarlas como texto
     }
 
     public void crearArrayDeAtaques() {

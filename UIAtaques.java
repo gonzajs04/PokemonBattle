@@ -20,8 +20,8 @@ public class UIAtaques extends Actor {
         b2 = new Boton("", null, 25, Color.BLACK, 320, 30);
         b3 = new Boton("", null, 25, Color.BLACK, 320, 30);
         b4 = new Boton("", null, 30, Color.BLACK, 320, 36);
-        descripcion = new Parrafo("Ataque", 20, Color.BLACK, 344, 192);
-        tituloAtaques = new Texto("Ataques", 30, Color.BLACK, null);
+        descripcion = new Parrafo(criaturas[0].getStats(), 20, Color.BLACK, 344, 192); //EN DEFAULT POS 0, INSTANCIA POR PANTALLA DUELO
+        tituloAtaques = new Texto("Ataques", 30, Color.BLACK, null);    
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UIAtaques extends Actor {
     public void asignarCriaturaActual(Criatura criaturaActual) { //RECIBO LA 
 
         this.criaturaActual = criaturaActual;
-        tituloAtaques.actualizarTexto(criaturaActual.toString());
+        tituloAtaques.actualizarTexto(criaturaActual.toString()); 
         botonSeleccionado = null;
         ataque = null;
         resetColorBotones();

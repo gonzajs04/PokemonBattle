@@ -7,7 +7,7 @@ public class Pikachu extends Criatura {
     public Pikachu(String nombre, boolean imagenEspejada) {
         super(nombre, 10, new String[] { "Puño", "- Rayo -", "- Placaje -", "- Furia de rayo -" }, imagenEspejada,
         new String[] { "Causa un daño moderado a un enemigo", "Quita 10 de daño y hay un 90% de probabilidades de paralizar al rival por 2 turnos", "Quita 5% de daño con un 85% de golpe critico",
-        "Se necesita 80 de energia y reduce la vida del rival un 90%" },4,"Electricidad","pikachu-muerto.png");
+        "Se necesita 80 de energia y reduce la vida del rival un 90%" },4,"Electricidad","pikachu-muerto.png","pikachu-paralizado.png");
         super.setDefensa(this.defensa);//LE ASIGNO EL ATRIBUTO DEFENSA EN LA CLASE CRIATURA
         super.setVelocidad(this.velocidad);//LE ASIGNO EL ATRIBUTO VELOCIDAD EN LA CLASE CRIATURA
         super.setAtaqueAtributo(this.ataque); //LE ASIGNO EL ATRIBUTO ATAQUE EN LA CLASE CRIATURA

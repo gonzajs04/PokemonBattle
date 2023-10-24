@@ -9,7 +9,7 @@ public class Charmander extends Criatura{
     public Charmander(String nombre, boolean imagenEspejada) {
         super(nombre, 10, new String[] { "Puño", "- Gruñido -", "- Chuchillada -", "- Ascuas -" }, imagenEspejada,
             new String[] { "Causa un daño moderado a un enemigo", "Baja un nivel el Ataque al rival",
-            "Golpea con alta probalidadad de golpe critico", "Quema al rival. Reduce un 10% de la vida del rival" },4,"Fuego","charmander-muerto.png");
+            "Golpea con alta probalidadad de golpe critico", "Quema al rival. Reduce un 10% de la vida del rival" },4,"Fuego","charmander-muerto.png","charmander-paralizado.png");
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);

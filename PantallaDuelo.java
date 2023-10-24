@@ -43,7 +43,7 @@ public class PantallaDuelo extends World {
             Criatura.setContadorEquipo2(0);
        }else{
            ronda++;
-           //turno();
+           turno();
        }
     }
 
@@ -60,7 +60,7 @@ public class PantallaDuelo extends World {
         if(!c.getEstaDesmayado()){
            uiAtaques.click(c);
            uiAtaques.asignarCriaturaActual(c); //CAMBIAMOS EL PERSONAJE CADA VEZ QUE HACEMOS CLICK
-          ronda();
+          
         }
     } 
 
