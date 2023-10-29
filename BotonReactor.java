@@ -16,25 +16,25 @@ public class BotonReactor {
 
     public void run() {
         Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1]; //OBTENGO EL ATAQUE DE LA CRIATURA QUE PASAMOS A TRAVES DE LA CLASE UIATAQUES EN LA FUNCION asignarCriaturaActual()
-        //System.out.println(this.criaturaActual.getAtaques()[this.numeroAtaque-1].getNombre());
-        // PantallaDuelo pantallaDuelo = ((PantallaDuelo) uiAtaques.getWorld());
+        
         if (uiAtaques.botonSeleccionado == boton) {
             // Si clickeo lo que está seleccionado, lo des-selecciona
             uiAtaques.ataque = null;
             uiAtaques.resetColorBotones();
-            uiAtaques.descripcion.setText("");
+            uiAtaques.descripcion.setText(criaturaActual.getStats()); //OBTIENE LAS STATS EN CASO DE QUE SEA DESELECCIONADO 
             uiAtaques.botonSeleccionado = null;
         } else {
+             uiAtaques.descripcion.setText(getDetalleAtaque(criaturaActual));
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
-            uiAtaques.ataque = () -> { //Si puede atacar que cambie ataque = true
+            uiAtaques.ataque = () -> { //Si puede atacar que cambie ataque = true | Solo se verifica cuanddo ataca a otro pokemon
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) { //VERIFICO SI PUEDE ATACAR A LA CRIATURA
                     atacarBoton(uiAtaques.ataqueObjetivo,ataque);
                     // pantallaDuelo.turno();
                 }
+                
             };
             uiAtaques.resetColorBotones();
             boton.actualizar(Color.YELLOW);
-            uiAtaques.descripcion.setText(getDetalleAtaque(criaturaActual));
             uiAtaques.botonSeleccionado = boton;
         }
     }

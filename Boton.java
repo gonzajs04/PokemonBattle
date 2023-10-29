@@ -35,7 +35,7 @@ public class Boton extends Actor {
 
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
-            onClick.run();
+            onClick.run(); // ACA SE LLAMA AL METODO RUN DE BTNREACT
         }
     }
     

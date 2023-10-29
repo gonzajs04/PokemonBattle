@@ -45,6 +45,6 @@ public class Ataque extends Actor
         return this.nombre;
     }
     
-
+    
 
 }
