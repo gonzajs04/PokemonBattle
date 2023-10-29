@@ -179,9 +179,12 @@ public abstract class Criatura extends Actor {
                 }
             }else{ //SI EL ATAQUE ES PARALIZADOR Y NO USO EL ATAQUE DE PARALIZADOR QUE PASE ESTO
                     this.randomParalizador = new Random();
-                    int random = this.randomParalizador.nextInt(2)+1;
+                    int random = this.randomParalizador.nextInt(2)+1; //TURNS
+                    
+                    
                     otro.setEstaParalizado(true);
-                    ataque.setSeHizoUso(true);
+                    ataque.setSeHizoUso(true); //ATAQUE NO DISPONIBLE PARA REP
+                    
                     generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
                 
 

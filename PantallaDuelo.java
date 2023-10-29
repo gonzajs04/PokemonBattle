@@ -12,7 +12,7 @@ public class PantallaDuelo extends World {
         super(700, 400, 1);
 
         agregarCriaturas();
-
+        
         turnoTexto = new Texto("Ronda " + ronda +" | " + "Turno " + turno, 20, Color.BLACK, Color.WHITE);
         addObject(turnoTexto, turnoTexto.getImage().getWidth() / 2, turnoTexto.getImage().getHeight() / 2);
 
@@ -40,12 +40,17 @@ public class PantallaDuelo extends World {
            System.out.println("Hay un ganador");
             Criatura.setContadorEquipo1(0);
             Criatura.setContadorEquipo2(0);
+           generarPantallaGanador();
+           
        }else{
            ronda++;
            turno();
        }
     }
 
+    public void generarPantallaGanador(){
+        Greenfoot.setWorld(new PantallaGanador());
+    }
     public void turno() {
         turno++;
         for (int i = 0; i < criaturas.length; i++) {
@@ -58,7 +63,7 @@ public class PantallaDuelo extends World {
     public void click(Criatura c) {
            uiAtaques.click(c);
            uiAtaques.asignarCriaturaActual(c); //CAMBIAMOS EL PERSONAJE CADA VEZ QUE HACEMOS CLICK 
-        
+           ronda();
     } 
 
     public void hover(Criatura c) {

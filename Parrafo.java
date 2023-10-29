@@ -38,6 +38,7 @@ public class Parrafo extends Actor {
         wrapText();
         render();
     }
+    
 
     public void setText(String text) {
         this.originalText = text;
