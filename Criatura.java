@@ -160,55 +160,55 @@ public abstract class Criatura extends Actor {
 
         if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
             if(!ataque.getNombre().equals("Paralizador") && !ataque.getSeHizoUso()){ 
+                
                 Random rand = new Random();
                 double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
-                double factor = verificarFactorCriatura(otro, ataque); // LE PASO EL OPONENTE Y EL ATAQUE QUE SE ESTA
-                // REALIZANDO PARA SABER SI LO TIENE COMO DEBILIDAD
-                double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); // FALTA EL FACTOR
-                // TIPO
-                double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); // VERIFICO SI CABE LA POSIBILIDAD DE TENER
-                // UN GOLPE CRITICO
+                double factor = verificarFactorCriatura(otro, ataque);
+                
+                double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); 
+                double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); 
                 double dañoFinal = Math.round(daño) + dañoGolpeCritico;
-                if(dañoFinal>otro.vida){ //SI EL DAÑO ES MAYOR A LA VIDA DEL RIVAL, QUE SETEE LA VIDA EN 0 PARA QUE ASI NO DE UN NUMERO NEGATIVO
+                if(dañoFinal>otro.vida){
                     otro.setVida(0);
                 }else{
                     otro.vida -= dañoFinal;
                     System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
                         + dañoFinal + " de vida a " + otro.getNombre());
                 }
-            }else{ //SI EL ATAQUE ES PARALIZADOR Y NO USO EL ATAQUE DE PARALIZADOR QUE PASE ESTO
+            }else{ 
                     this.randomParalizador = new Random();
-                    int random = this.randomParalizador.nextInt(2)+1; //TURNS
+                    int random = this.randomParalizador.nextInt(2)+1; 
                     
                     
                     otro.setEstaParalizado(true);
-                    ataque.setSeHizoUso(true); //ATAQUE NO DISPONIBLE PARA REP
+                    ataque.setSeHizoUso(true); 
                     
-                    generarImagen(otro,otro.imagenPokemonParalizado); //HAGO UN METODO REUTILIZABLE PARA MULTIPLES ESTADOS
+                    generarImagen(otro,otro.imagenPokemonParalizado); 
                 
 
             }
+               verificarPosibilidadDesmayo(otro); 
+                otro.uiInfoCriatura.actualizar(); 
+
         }
-        verificarPosibilidadDesmayo(otro); //UNA VEZ VERIFICADA LA VIDA, VERIFICO SI EL POKEMON ESTA LISTO PARA DESMAYARSE
-        otro.uiInfoCriatura.actualizar(); // Actualizo la info del rival
         return otro.vida;
     }
 
     public void verificarPosibilidadDesmayo(Criatura otro){
         if(otro.getVida()<=0){
-            otro.setEstaDesmayado(true); // SE DESMAYO
-            verificarEquipoIntegranteDesmayado(otro); //VERIFICO LA CANTIDAD DE DESMAYADOS EN LOS EQUIPOS
+            otro.setEstaDesmayado(true); 
+            verificarEquipoIntegranteDesmayado(otro); 
         }
     }
 
     public void verificarEquipoIntegranteDesmayado(Criatura otro){
         if(otro.getEquipo()){
-            contMuertosEquipo1++; //SI ES DEL EQUIPO 1 QUE SUME LOS MUERTOS DEL EQUIPO 1
+            contMuertosEquipo1++; 
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 1");
 
         }else{
-            contMuertosEquipo2++; //SI ES DEL EQUIPO 2, QUE SIME LO MUERTOS DEL EQUIPO 2
+            contMuertosEquipo2++; 
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 2");
         }     
         generarImagen(otro,otro.imagenPokemonMuerto);
@@ -216,11 +216,11 @@ public abstract class Criatura extends Actor {
     }
     public double verificarGolpeCritico(double daño, Ataque ataque) {
         double posibleCritico = 0;
-        double golpeCritico = 0; // LO ESTABLEZCO EN 0 POR SI NO HAY GOLPE CRITICO
+        double golpeCritico = 0; 
         Random rd = new Random();
-        posibleCritico = rd.nextInt(101); // Calculo un random del 0 al 100 pra el golpe critico
-        if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { // Si el random es menor que la probabiliad del
-            // critico del ataque, se genera el GolpeCritico
+        posibleCritico = rd.nextInt(101); 
+        if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { 
+            
             golpeCritico = calcularGolpeCritico(daño);
             System.out.println("Se produjo un golpe critico de parte de " + this.getNombre());
         }
@@ -232,30 +232,27 @@ public abstract class Criatura extends Actor {
     }
 
     public void generarImagen(Criatura c, String imagenPokemon){
-        GreenfootImage miImagen = new GreenfootImage(imagenPokemon); // ME LO CONVIERTE A TIPO GREENFOOT IMAGE
-        c.imagenOriginal = new MyGreenfootImage(miImagen); //LE SETEA LA IMAGEN DE TIPO GREENFOOTIMAGE
+        GreenfootImage miImagen = new GreenfootImage(imagenPokemon); 
+        c.imagenOriginal = new MyGreenfootImage(miImagen); 
         c.imagenOriginal.scale(130,130);
     }
 
 
     public double verificarFactorCriatura(Criatura oponente, Ataque ataque) {
-        double factor = 1; // EN CASO DE QUE NO TENGA DEBILIDAD EL FACTOR ES 1
+        double factor = 1; 
         for (int i = 0; i < oponente.getDebilidades().length; i++) {
-            if (oponente.getDebilidades()[i] == ataque.getTipo()) { // ME FIJO SI TIENE DEBILIDADES AL ATAQUE
-                // EN CASO DE QUE SI, EL FACTOR EL 1.25
+            if (oponente.getDebilidades()[i] == ataque.getTipo()) { 
                 System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "
                     + ataque.getTipo() + " , el daño sera de 1.25 mayor");
                 factor = 1.25;
-            } else if (oponente.getTipo() == ataque.getTipo()) { // En caso de que no tenga debilidad, me fijo, si es
-                // tipo del oponente es igual al tipo de ataque. En
-                // caso de que si, tiene un factor de 0.75
+            } else if (oponente.getTipo() == ataque.getTipo()) {  
                 System.out.println("El pokemon que estas atacando tiene una resistencia hacia el ataque: "
                     + ataque.getTipo() + " , el daño sera de 0.75 mayor");
 
                 factor = 0.75;
             }
         }
-        // en caso que no tenga no tenga debilidades ni resistencias el factor es de 1
+      
         return factor;
     }
 
@@ -306,12 +303,12 @@ public abstract class Criatura extends Actor {
     }
 
     public void setDebilidades(String[] debilidades) {
-        this.debilidades = debilidades; // LE SETEO LAS DEBILIDADES DEL POKEMON
+        this.debilidades = debilidades; 
 
     }
 
     public String[] getDebilidades() {
-        return this.debilidades; // Obtengo las debilidades
+        return this.debilidades; 
     }
 
     public void setVisualSeleccionado(boolean visualSeleccionado) {
@@ -336,7 +333,7 @@ public abstract class Criatura extends Actor {
         " - Ataque: " + this.ataqueAtributo + "\n" +
         " - Defensa: " + this.getDefensa() + "\n" +
         " - Velocidad: " + this.getVelocidad() + "\n" +
-        "- Debilidades: " + Arrays.toString(this.getDebilidades()); // Las convierto para mostrarlas como texto
+        "- Debilidades: " + Arrays.toString(this.getDebilidades());
     }
 
     public void crearArrayDeAtaques() {

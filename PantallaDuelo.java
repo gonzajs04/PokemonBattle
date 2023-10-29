@@ -20,7 +20,10 @@ public class PantallaDuelo extends World {
         addObject(uiAtaques, 350, 300);
 
         GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); //SE CAMBIA EL FONDO
-        getBackground().drawImage(imagenFondo, 0, 0);        
+        getBackground().drawImage(imagenFondo, 0, 0);  
+        
+        uiAtaques.asignarCriaturaActual(criaturas[0]);
+
         ronda();
     }
 
@@ -44,7 +47,6 @@ public class PantallaDuelo extends World {
            
        }else{
            ronda++;
-           turno();
        }
     }
 
@@ -62,7 +64,7 @@ public class PantallaDuelo extends World {
 
     public void click(Criatura c) {
            uiAtaques.click(c);
-           uiAtaques.asignarCriaturaActual(c); //CAMBIAMOS EL PERSONAJE CADA VEZ QUE HACEMOS CLICK 
+           uiAtaques.asignarCriaturaActual(c);
            ronda();
     } 
 

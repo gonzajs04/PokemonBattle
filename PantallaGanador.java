@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public  class PantallaGanador extends World
 {
-    private GreenfootSound winnerMusic = new GreenfootSound("victory.mp3");
+    private static final GreenfootSound winnerMusic = new GreenfootSound("victory.mp3");
 
     public PantallaGanador()
     {    
