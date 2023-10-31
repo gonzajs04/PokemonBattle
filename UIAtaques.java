@@ -36,39 +36,36 @@ public class UIAtaques extends Actor {
 
     public void asignarCriaturaActual(Criatura criaturaActual) { //RECIBO LA 
 
-        this.criaturaActual = criaturaActual;
-        tituloAtaques.actualizarTexto(criaturaActual.toString()); 
-        botonSeleccionado = null;
-        ataque = null;
-        resetColorBotones();
-        criaturaActual.setVisualSeleccionado(true); //cambia color del pokemon contorno
-        dibujarFondo();
+        if(criaturaActual.getVida()>0){
+            this.criaturaActual = criaturaActual;
+            tituloAtaques.actualizarTexto(criaturaActual.toString()); 
+            botonSeleccionado = null;
+            ataque = null;
+            resetColorBotones();
+            criaturaActual.setVisualSeleccionado(true); //cambia color del pokemon contorno
+            dibujarFondo();
 
-        Boton[] botones =  { b1, b2, b3, b4 };
+            Boton[] botones =  { b1, b2, b3, b4 };
 
-        for (int i = 0; i < botones.length; i++) {
-            new BotonReactor(botones[i], this, criaturaActual, i + 1); //LE PASO LA CRIATURA ACTUAL PARA OBTENER LUEGO LOS ATAQUES EN LOS BOTONES REACTORES
+            for (int i = 0; i < botones.length; i++) {
+                new BotonReactor(botones[i], this, criaturaActual, i + 1); 
+            }
         }
+
     }
 
     public void click(Criatura c) {
         ataqueObjetivo = c;
-        if (botonSeleccionado == null) { //EN CASO DE QUE NO HAYA UN BOTON DE ATAQUE SELECCIONADO QUE ME OBTENGA LAS STATS DE LA CRIATURA
-            descripcion.setText(c.getStats());
-        }
         if (ataque != null) { //cambia en BTREAC
             ataque.run();
         }
     }
 
     public void hover(Criatura c) {
-        if (hoverObjetivo == c) {
-            return;
-        }
 
         hoverObjetivo = c;
-        if (botonSeleccionado == null) {
-            // descripcion.actualizarTexto(c.toString());
+        if (botonSeleccionado == null) { 
+            descripcion.setText(c.getStats());
         }
     }
 

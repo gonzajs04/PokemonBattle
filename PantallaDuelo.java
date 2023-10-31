@@ -5,14 +5,16 @@ public class PantallaDuelo extends World {
     private Texto turnoTexto;
     private UIAtaques uiAtaques;
     private Criatura[] criaturas = new Criatura[4];
-
+    private Criatura[] criaturasOrdenadasPorVelocidad = new Criatura[4];
     private int ronda = 0;
     private int turno = 0;
+    private int i =0;
+    private int MAX_CRIATURAS_A_GANAR = 2;
     public PantallaDuelo() {
         super(700, 400, 1);
 
         agregarCriaturas();
-        
+
         turnoTexto = new Texto("Ronda " + ronda +" | " + "Turno " + turno, 20, Color.BLACK, Color.WHITE);
         addObject(turnoTexto, turnoTexto.getImage().getWidth() / 2, turnoTexto.getImage().getHeight() / 2);
 
@@ -21,10 +23,10 @@ public class PantallaDuelo extends World {
 
         GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); //SE CAMBIA EL FONDO
         getBackground().drawImage(imagenFondo, 0, 0);  
-        
-        uiAtaques.asignarCriaturaActual(criaturas[0]);
 
-        ronda();
+        uiAtaques.asignarCriaturaActual(criaturas[i]);
+        crearCriaturasParaOrdenarPorVelocidad();
+
     }
 
     private void agregarCriaturas() {
@@ -36,37 +38,83 @@ public class PantallaDuelo extends World {
         addObject(criaturas[1], 240, 80);
         addObject(criaturas[2], 460, 80);
         addObject(criaturas[3], 600, 80);
+
     }
-    
+
+
     private void ronda() {
-        if(Criatura.getContadorEquipo1() == 2 || Criatura.getContadorEquipo2() ==2){
-           System.out.println("Hay un ganador");
-            Criatura.setContadorEquipo1(0);
-            Criatura.setContadorEquipo2(0);
-           generarPantallaGanador();
-           
-       }else{
-           ronda++;
-       }
+            ronda++;  
+            
     }
 
     public void generarPantallaGanador(){
         Greenfoot.setWorld(new PantallaGanador());
     }
+
     public void turno() {
-        turno++;
-        for (int i = 0; i < criaturas.length; i++) {
-            criaturas[i].setVisualSeleccionado(false);
+        if(turno < 3){
+            turno++;
+            for (int i = 0; i < criaturas.length; i++) {
+                criaturas[i].setVisualSeleccionado(false);
+            }
+    
+        }else{
+            turno = 0;
+            ronda();
         }
         turnoTexto.actualizarTexto("Ronda " + ronda + " | Turno " + turno);
-        uiAtaques.asignarCriaturaActual(criaturas[0]);
     }
 
     public void click(Criatura c) {
-           uiAtaques.click(c);
-           uiAtaques.asignarCriaturaActual(c);
-           ronda();
+            uiAtaques.click(c);      
+            if(i<3){
+                i++;
+
+            }else{
+                i=0;
+            }
+            uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[i]);
+            turno();
+            verificarSiHayGanador();
+            
+
     } 
+    public void verificarSiHayGanador(){
+         if(Criatura.getContadorEquipo1() == MAX_CRIATURAS_A_GANAR || Criatura.getContadorEquipo2() == MAX_CRIATURAS_A_GANAR){
+            System.out.println("Hay un ganador");
+            Criatura.setContadorEquipo1(0);
+            Criatura.setContadorEquipo2(0);
+            generarPantallaGanador();
+
+        }
+    }
+
+    public void crearCriaturasParaOrdenarPorVelocidad(){
+        for( int i=0; i<criaturas.length;i++){
+            criaturasOrdenadasPorVelocidad[i] = criaturas[i];
+        }
+        ordenarCriaturasPorVelocidad();
+
+    }
+
+    public void ordenarCriaturasPorVelocidad(){
+        int i=0;
+        int j=0;
+        Criatura aux = null;
+        for(i=0; i<criaturasOrdenadasPorVelocidad.length;i++){
+            for(j=0; j<criaturasOrdenadasPorVelocidad.length-1;j++){
+
+                if(criaturasOrdenadasPorVelocidad[j].getVelocidad()<criaturasOrdenadasPorVelocidad[j+1].getVelocidad()){
+                    aux = criaturasOrdenadasPorVelocidad[j];
+                    criaturasOrdenadasPorVelocidad[j] = criaturasOrdenadasPorVelocidad[j+1];
+                    criaturasOrdenadasPorVelocidad[j+1]=aux;
+                }
+
+            }
+        }
+        System.out.println(Arrays.toString(criaturasOrdenadasPorVelocidad));
+
+    }
 
     public void hover(Criatura c) {
         uiAtaques.hover(c);

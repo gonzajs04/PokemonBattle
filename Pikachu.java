@@ -1,6 +1,6 @@
 import java.util.*;
 public class Pikachu extends Criatura {
-    private int velocidad = 300;
+    private int velocidad = 500;
     private int defensa = 100;
     private int ataque=150;
     private String [] debilidades = {"Normal","Fuego"};

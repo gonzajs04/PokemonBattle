@@ -12,7 +12,6 @@ comment5.params=
 comment5.target=java.lang.String\ getImagenMuerto()
 comment6.params=otro
 comment6.target=boolean\ puedeRealizarAtaque2En(Criatura)
-comment6.text=\ public\ void\ atacar(Criatura\ otro)\ {\r\n\ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \r\n}
 comment7.params=otro
 comment7.target=boolean\ puedeRealizarAtaque3En(Criatura)
 comment8.params=otro

@@ -47,6 +47,8 @@ public abstract class Criatura extends Actor {
         crearArrayDeAtaques();
     }
 
+
+
     @Override
     protected void addedToWorld(World world) {
         render();
@@ -159,13 +161,22 @@ public abstract class Criatura extends Actor {
     protected int atacar(Criatura otro, Ataque ataque) {
 
         if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
-            if(!ataque.getNombre().equals("Paralizador") && !ataque.getSeHizoUso()){ 
-                
+            if(ataque.getNombre().equals("Paralizador") && !ataque.getSeHizoUso()){ 
+                this.randomParalizador = new Random();
+                int random = this.randomParalizador.nextInt(2)+1; 
+
+                otro.setEstaParalizado(true);
+                ataque.setSeHizoUso(true); 
+                System.out.println("El ataque paralizador ya no tendra efecto de ahora en mas");
+
+                generarImagen(otro,otro.imagenPokemonParalizado); 
+
+            }else{ 
                 Random rand = new Random();
                 double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
                 double factor = verificarFactorCriatura(otro, ataque);
-                
+
                 double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); 
                 double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); 
                 double dañoFinal = Math.round(daño) + dañoGolpeCritico;
@@ -175,21 +186,11 @@ public abstract class Criatura extends Actor {
                     otro.vida -= dañoFinal;
                     System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
                         + dañoFinal + " de vida a " + otro.getNombre());
-                }
-            }else{ 
-                    this.randomParalizador = new Random();
-                    int random = this.randomParalizador.nextInt(2)+1; 
-                    
-                    
-                    otro.setEstaParalizado(true);
-                    ataque.setSeHizoUso(true); 
-                    
-                    generarImagen(otro,otro.imagenPokemonParalizado); 
-                
+                } 
 
             }
-               verificarPosibilidadDesmayo(otro); 
-                otro.uiInfoCriatura.actualizar(); 
+            verificarPosibilidadDesmayo(otro); 
+            otro.uiInfoCriatura.actualizar(); 
 
         }
         return otro.vida;
@@ -214,13 +215,14 @@ public abstract class Criatura extends Actor {
         generarImagen(otro,otro.imagenPokemonMuerto);
 
     }
+
     public double verificarGolpeCritico(double daño, Ataque ataque) {
         double posibleCritico = 0;
         double golpeCritico = 0; 
         Random rd = new Random();
         posibleCritico = rd.nextInt(101); 
         if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { 
-            
+
             golpeCritico = calcularGolpeCritico(daño);
             System.out.println("Se produjo un golpe critico de parte de " + this.getNombre());
         }
@@ -237,7 +239,6 @@ public abstract class Criatura extends Actor {
         c.imagenOriginal.scale(130,130);
     }
 
-
     public double verificarFactorCriatura(Criatura oponente, Ataque ataque) {
         double factor = 1; 
         for (int i = 0; i < oponente.getDebilidades().length; i++) {
@@ -252,7 +253,7 @@ public abstract class Criatura extends Actor {
                 factor = 0.75;
             }
         }
-      
+
         return factor;
     }
 

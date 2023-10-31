@@ -32,11 +32,6 @@ public class Charmander extends Criatura{
         return "charmander-muerto.png";
     }
 
-   /* public void atacar(Criatura otro) {
-       
-        
-    }*/
-
   
     public boolean puedeRealizarAtaque2En(Criatura otro) {
         return !esDelMismoEquipoQue(otro);

@@ -23,6 +23,7 @@ public class BotonReactor {
             uiAtaques.resetColorBotones();
             uiAtaques.descripcion.setText(criaturaActual.getStats()); //OBTIENE LAS STATS EN CASO DE QUE SEA DESELECCIONADO 
             uiAtaques.botonSeleccionado = null;
+      
         } else {
              uiAtaques.descripcion.setText(getDetalleAtaque(criaturaActual));
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
