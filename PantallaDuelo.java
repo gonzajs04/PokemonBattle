@@ -8,7 +8,7 @@ public class PantallaDuelo extends World {
     private Criatura[] criaturasOrdenadasPorVelocidad = new Criatura[4];
     private int ronda = 0;
     private int turno = 0;
-    private int i =0;
+    private int criaturaActualIndex =0;
     private int MAX_CRIATURAS_A_GANAR = 2;
     public PantallaDuelo() {
         super(700, 400, 1);
@@ -24,7 +24,7 @@ public class PantallaDuelo extends World {
         GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); //SE CAMBIA EL FONDO
         getBackground().drawImage(imagenFondo, 0, 0);  
 
-        uiAtaques.asignarCriaturaActual(criaturas[i]);
+        uiAtaques.asignarCriaturaActual(criaturas[criaturaActualIndex]);
         crearCriaturasParaOrdenarPorVelocidad();
 
     }
@@ -41,10 +41,9 @@ public class PantallaDuelo extends World {
 
     }
 
-
     private void ronda() {
-            ronda++;  
-            
+        ronda++;  
+
     }
 
     public void generarPantallaGanador(){
@@ -52,12 +51,12 @@ public class PantallaDuelo extends World {
     }
 
     public void turno() {
-        if(turno < 3){
+        if(turno < 3){ // 4 vuelve a estar en pikachu
             turno++;
             for (int i = 0; i < criaturas.length; i++) {
                 criaturas[i].setVisualSeleccionado(false);
             }
-    
+
         }else{
             turno = 0;
             ronda();
@@ -66,21 +65,21 @@ public class PantallaDuelo extends World {
     }
 
     public void click(Criatura c) {
-            uiAtaques.click(c);      
-            if(i<3){
-                i++;
-
-            }else{
-                i=0;
-            }
-            uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[i]);
-            turno();
-            verificarSiHayGanador();
-            
+        uiAtaques.click(c);      
+        if(criaturaActualIndex<3){
+            criaturaActualIndex++;
+        }
+        else{
+            criaturaActualIndex=0;
+        }
+        uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
+        turno();
+        verificarSiHayGanador();
 
     } 
+
     public void verificarSiHayGanador(){
-         if(Criatura.getContadorEquipo1() == MAX_CRIATURAS_A_GANAR || Criatura.getContadorEquipo2() == MAX_CRIATURAS_A_GANAR){
+        if(Criatura.getContadorEquipo1() == MAX_CRIATURAS_A_GANAR || Criatura.getContadorEquipo2() == MAX_CRIATURAS_A_GANAR){
             System.out.println("Hay un ganador");
             Criatura.setContadorEquipo1(0);
             Criatura.setContadorEquipo2(0);
