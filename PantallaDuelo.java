@@ -65,13 +65,9 @@ public class PantallaDuelo extends World {
     }
 
     public void click(Criatura c) {
-        uiAtaques.click(c);      
-        if(criaturaActualIndex<3){
-            criaturaActualIndex++;
-        }
-        else{
-            criaturaActualIndex=0;
-        }
+        uiAtaques.click(c);
+        criaturaActualIndex = (criaturaActualIndex + 1) % criaturas.length; //EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo == NO ES DIVISIBLE POR 4
+        
         uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
         turno();
         verificarSiHayGanador();
@@ -111,7 +107,6 @@ public class PantallaDuelo extends World {
 
             }
         }
-        System.out.println(Arrays.toString(criaturasOrdenadasPorVelocidad));
 
     }
 
