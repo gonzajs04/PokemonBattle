@@ -62,12 +62,14 @@ public class PantallaDuelo extends World {
             ronda();
         }
         turnoTexto.actualizarTexto("Ronda " + ronda + " | Turno " + turno);
+
     }
 
     public void click(Criatura c) {
+
         uiAtaques.click(c);
-        criaturaActualIndex = (criaturaActualIndex + 1) % criaturas.length; //EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo == NO ES DIVISIBLE POR 4
-        
+
+        criaturaActualIndex = (criaturaActualIndex + 1) % 4; //EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo == NO ES DIVISIBLE POR 4
         uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
         turno();
         verificarSiHayGanador();

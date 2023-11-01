@@ -5,7 +5,7 @@ public class Placaje extends Ataque {
     private int porcentajeDeVidaADisminuir = 5;
     
     public Placaje(){
-        super("Placaje",0,0, "Normal",5,50);
+        super("Placaje",0,0, "Normal",5,85);
     }
 }
 

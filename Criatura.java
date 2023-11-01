@@ -27,6 +27,7 @@ public abstract class Criatura extends Actor {
     private Random randomParalizador;
     private String imagenPokemonMuerto;
     private String imagenPokemonParalizado;
+
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
     int cantAtaques, String tipo, String imagenPokemonMuerto, String imagenPokemonParalizado) {
         this.nombre = nombre;
@@ -46,7 +47,6 @@ public abstract class Criatura extends Actor {
         this.imagenPokemonParalizado = imagenPokemonParalizado;
         crearArrayDeAtaques();
     }
-
 
 
     @Override
@@ -161,7 +161,7 @@ public abstract class Criatura extends Actor {
     protected int atacar(Criatura otro, Ataque ataque) {
 
         if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
-            if(ataque.getNombre().equals("Paralizador") && !ataque.getSeHizoUso()){ 
+            if( paralizaOQuitaDaño(ataque) ){ 
                 this.randomParalizador = new Random();
                 int random = this.randomParalizador.nextInt(2)+1; 
 
@@ -172,21 +172,7 @@ public abstract class Criatura extends Actor {
                 generarImagen(otro,otro.imagenPokemonParalizado); 
 
             }else{ 
-                Random rand = new Random();
-                double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
-
-                double factor = verificarFactorCriatura(otro, ataque);
-
-                double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); 
-                double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); 
-                double dañoFinal = Math.round(daño) + dañoGolpeCritico;
-                if(dañoFinal>otro.vida){
-                    otro.setVida(0);
-                }else{
-                    otro.vida -= dañoFinal;
-                    System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
-                        + dañoFinal + " de vida a " + otro.getNombre());
-                } 
+                realizarAtaqueDaño(otro,ataque);
 
             }
             verificarPosibilidadDesmayo(otro); 
@@ -194,6 +180,28 @@ public abstract class Criatura extends Actor {
 
         }
         return otro.vida;
+    }
+
+    public void realizarAtaqueDaño(Criatura otro, Ataque ataque){
+        Random rand = new Random();
+        double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
+
+        double factor = verificarFactorCriatura(otro, ataque);
+
+        double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); 
+        double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); 
+        double dañoFinal = Math.round(daño) + dañoGolpeCritico;
+        if(dañoFinal>otro.vida){
+            otro.setVida(0);
+        }else{
+            otro.vida -= dañoFinal;
+            System.out.println("El pokemon " + this.getNombre() + " Ataco con " + ataque.getNombre() + " y quito "
+                + dañoFinal + " de vida a " + otro.getNombre());
+        } 
+    }
+
+    public boolean paralizaOQuitaDaño(Ataque ataque){
+        return( ataque.getNombre().equals("Paralizador") || ataque.getNombre().equals("Ataque Burbuja") && !ataque.getSeHizoUso());
     }
 
     public void verificarPosibilidadDesmayo(Criatura otro){

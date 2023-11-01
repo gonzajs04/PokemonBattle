@@ -9,6 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class GolpeAereo extends Ataque
 {
       public GolpeAereo(){
-        super("Golpe Aereo",10,50, "Normal",5,75);
+        super("Golpe Aereo",10,50, "Normal",5,85);
     }
 }
