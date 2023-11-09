@@ -219,7 +219,7 @@ public abstract class Criatura extends Actor {
     }
 
     public void verificarEquipoIntegranteDesmayado(Criatura otro){
-        if(otro.getEquipo()){
+        if(otro.esEquipo1()){
             contMuertosEquipo1++; 
             System.out.println("Murio el pokemon "+ otro.getNombre() + " del equipo 1");
 
@@ -280,7 +280,7 @@ public abstract class Criatura extends Actor {
         return !esDelMismoEquipoQue(otro);
     }
 
-    public boolean getEquipo() {
+    public boolean esEquipo1() {
         return this.equipo1;
     }
 
@@ -314,9 +314,7 @@ public abstract class Criatura extends Actor {
         return this.defensa;
     }
 
-    public boolean esEquipo1() {
-        return equipo1;
-    }
+ 
 
     public void setDebilidades(String[] debilidades) {
         this.debilidades = debilidades; 

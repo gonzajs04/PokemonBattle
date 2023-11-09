@@ -67,26 +67,27 @@ public class PantallaDuelo extends World {
     }
 
     public void click(Criatura c) {
-        boolean criaturaActualEquipo = criaturasOrdenadasPorVelocidad[criaturaActualIndex].getEquipo();
-        uiAtaques.click(c);
-
-        //SI ES DEL MISMO EQUIPO Y ESTA CLICKEANDO UN ATAQUE. QUE NO ATAQUE Y NO CAMBIE DE PERSONAJE
-        //SI ES DEL MISMO EQUIPO Y NO ESTA SELECCIONANDO UN ATAQUE Y CLICKEA QUE NO CAMBIE DE PERSONAJE
-        //SI ES DE DIF EQUIPO Y TIENE ATAQUE SELECCIONADO. QUE CAMBIE DE PERSONAJE
-        //SI ES DE DIF Y NO TIENE ATAQUE SELECCIONADO. QUE NO CAMBIE DE PERSONAJE
-        if (c.getEquipo() != criaturaActualEquipo && criaturasOrdenadasPorVelocidad[criaturaActualIndex].estaPorAtacar()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
+        //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR NO ESTA MUERTO. QUE ATAQUE
+        //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
+        //SI NO ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
+        // SI ESTA NO CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR NO ESTA MUERTO. QUE NO ATAQUE
+        if (criaturasOrdenadasPorVelocidad[criaturaActualIndex].esEquipo1()!=c.esEquipo1()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
+            uiAtaques.click(c);
             criaturaActualIndex = (criaturaActualIndex + 1) % 4; // EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo
-                                                                 // == NO ES DIVISIBLE POR 4
+                                             // == NO ES DIVISIBLE POR 4
             uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
+            criaturasOrdenadasPorVelocidad[criaturaActualIndex].setEstaPorAtacar(false);
             turno();
-            verificarSiHayGanador();
         }
+                    verificarSiHayGanador();
+
 
     }
 
     public void verificarSiHayGanador() {
-        if (Criatura.getContadorEquipo1() == MAX_CRIATURAS_A_GANAR
-                || Criatura.getContadorEquipo2() == MAX_CRIATURAS_A_GANAR) {
+        System.out.println("LA RE CONCHA DE TU MADRE" + Criatura.getContadorEquipo1());
+        if (Criatura.getContadorEquipo1() >= MAX_CRIATURAS_A_GANAR
+                || Criatura.getContadorEquipo2() >= MAX_CRIATURAS_A_GANAR) {
             System.out.println("Hay un ganador");
             Criatura.setContadorEquipo1(0);
             Criatura.setContadorEquipo2(0);

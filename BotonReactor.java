@@ -67,6 +67,5 @@ public class BotonReactor {
 
     public void atacarBoton(Criatura otro, Ataque ataque) {
         this.criaturaActual.atacar(otro,ataque); //LE VOY A PASAR EL ATAQUE A LA CLASE CRIATURA - funcion atacarCriatura POR PARAMETRO PARA HACERLE DAÑO CON EL ATAQUE CORRESPONDIENTE
-
     }
 }
