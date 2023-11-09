@@ -27,7 +27,7 @@ public abstract class Criatura extends Actor {
     private Random randomParalizador;
     private String imagenPokemonMuerto;
     private String imagenPokemonParalizado;
-
+    private boolean estaPorAtacar = false;
     public Criatura(String nombre, int vida, String[] nombresAtaque, boolean equipo1, String[] detallesAtaque,
     int cantAtaques, String tipo, String imagenPokemonMuerto, String imagenPokemonParalizado) {
         this.nombre = nombre;
@@ -88,6 +88,13 @@ public abstract class Criatura extends Actor {
 
     public void setDefensa(int defensa) {
         this.defensa = defensa;
+    }
+    
+     public void setEstaPorAtacar(boolean estaPorAtacar){
+        this.estaPorAtacar  = estaPorAtacar;
+        }
+    public boolean estaPorAtacar(){
+        return estaPorAtacar;
     }
 
     public void setVelocidad(int velocidad) {

@@ -20,12 +20,15 @@ public class BotonReactor {
         if (uiAtaques.botonSeleccionado == boton) {
             // Si clickeo lo que está seleccionado, lo des-selecciona
             uiAtaques.ataque = null;
+            criaturaActual.setEstaPorAtacar(false);
             uiAtaques.resetColorBotones();
             uiAtaques.descripcion.setText(criaturaActual.getStats()); //OBTIENE LAS STATS EN CASO DE QUE SEA DESELECCIONADO 
             uiAtaques.botonSeleccionado = null;
       
         } else {
              uiAtaques.descripcion.setText(getDetalleAtaque(criaturaActual));
+             criaturaActual.setEstaPorAtacar(true);
+             System.out.println("HOLAAA");
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
             uiAtaques.ataque = () -> { //Si puede atacar que cambie ataque = true | Solo se verifica cuanddo ataca a otro pokemon
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) { //VERIFICO SI PUEDE ATACAR A LA CRIATURA
