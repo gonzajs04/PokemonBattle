@@ -43,7 +43,7 @@ public class PantallaDuelo extends World {
 
     }
 
-    private void ronda() {
+    private void  ronda() {
         ronda++;
 
     }
@@ -53,7 +53,7 @@ public class PantallaDuelo extends World {
     }
 
     public void turno() {
-        if (turno < 3) { // 4 vuelve a estar en pikachu
+        if (turno < criaturasOrdenadasPorVelocidad.length) { // 4 vuelve a estar en pikachu
             turno++;
             for (int i = 0; i < criaturas.length; i++) {
                 criaturas[i].setVisualSeleccionado(false);
@@ -72,17 +72,14 @@ public class PantallaDuelo extends World {
         //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
         //SI NO ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
         // SI ESTA NO CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR NO ESTA MUERTO. QUE NO ATAQUE
-        
+        //estaPorAtacar cambia en btnreact
 
-        if (criaturasOrdenadasPorVelocidad[criaturaActualIndex].esEquipo1()!=c.esEquipo1() && !criaturasOrdenadasPorVelocidad[criaturaActualIndex].getEstaDesmayado()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
+        if (criaturasOrdenadasPorVelocidad[criaturaActualIndex].esEquipo1()!=c.esEquipo1() && !criaturasOrdenadasPorVelocidad[criaturaActualIndex].getEstaDesmayado() && criaturasOrdenadasPorVelocidad[criaturaActualIndex].estaPorAtacar()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
             uiAtaques.click(c);
              criaturasOrdenadasPorVelocidad = comprobarPokemonesVivos(); // VERIFICO LUEGO DE ATACAR SI HAY ALGUYN POKLKEMON MUERTO
              
-             //DETERMINO LA POSICION DEL POKEMON QUE LE SIGUE
+            //DETERMINO LA POSICION DEL POKEMON QUE LE SIGUE
             criaturaActualIndex = (criaturaActualIndex + 1) % criaturasOrdenadasPorVelocidad.length; // EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo
-                    
-            
-            // == NO ES DIVISIBLE POR 4
             
             //ASIGNO A LA CRIATURA
             uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
@@ -125,7 +122,6 @@ public class PantallaDuelo extends World {
 
 
     public void verificarSiHayGanador() {
-        System.out.println("LA RE CONCHA DE TU MADRE" + Criatura.getContadorEquipo1());
         if (Criatura.getContadorEquipo1() >= MAX_CRIATURAS_A_GANAR
                 || Criatura.getContadorEquipo2() >= MAX_CRIATURAS_A_GANAR) {
             System.out.println("Hay un ganador");

@@ -36,7 +36,6 @@ public class UIAtaques extends Actor {
 
     public void asignarCriaturaActual(Criatura criaturaActual) { //RECIBO LA 
 
-        if(criaturaActual.getVida()>0){
             this.criaturaActual = criaturaActual;
             tituloAtaques.actualizarTexto(criaturaActual.toString()); 
             botonSeleccionado = null;
@@ -50,7 +49,7 @@ public class UIAtaques extends Actor {
             for (int i = 0; i < botones.length; i++) {
                 new BotonReactor(botones[i], this, criaturaActual, i + 1); 
             }
-        }
+        
 
     }
 
@@ -64,7 +63,7 @@ public class UIAtaques extends Actor {
     public void hover(Criatura c) {
 
         hoverObjetivo = c;
-        if (botonSeleccionado == null) { 
+        if (botonSeleccionado == null) { //en caso de que haya un ataque seleccionado, no debe entrar y mostrar las stats de los pokemones
             descripcion.setText(c.getStats());
         }
     }

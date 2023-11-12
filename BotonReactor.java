@@ -6,7 +6,6 @@ public class BotonReactor {
     int numeroAtaque;
 
     public BotonReactor(Boton boton, UIAtaques uiAtaques, Criatura criaturaActual, int numeroAtaque) {
-        //System.out.println(numeroAtaque);
         this.boton = boton;
         this.uiAtaques = uiAtaques;
         this.criaturaActual = criaturaActual;
@@ -14,7 +13,7 @@ public class BotonReactor {
         boton.actualizar(this);
     }
 
-    public void run() {
+    public void run() { //Runnable que se llama en Class Btn
         Ataque ataque = this.criaturaActual.getAtaques()[this.numeroAtaque-1]; //OBTENGO EL ATAQUE DE LA CRIATURA QUE PASAMOS A TRAVES DE LA CLASE UIATAQUES EN LA FUNCION asignarCriaturaActual()
         
         if (uiAtaques.botonSeleccionado == boton) {
@@ -26,9 +25,8 @@ public class BotonReactor {
             uiAtaques.botonSeleccionado = null;
       
         } else {
-             uiAtaques.descripcion.setText(getDetalleAtaque(criaturaActual));
-             criaturaActual.setEstaPorAtacar(true);
-             System.out.println("HOLAAA");
+             uiAtaques.descripcion.setText(this.criaturaActual.getDetallesAtaque()[this.numeroAtaque - 1]);
+             criaturaActual.setEstaPorAtacar(true);//LO DEFINO PARA DETERMINAR SI CUANDO CLICKEO EN OTRO POKEMON SE ESTA ATACANDO O NO. EN CASO DE QUE NO ESTE POR ATACAR, SIGNIFICA QUE NO DEBE CAMBIAR DE PERSONAJE.
             // Si clickeo algo NO seleccionado, lo selecciona y prepara el posible ataque
             uiAtaques.ataque = () -> { //Si puede atacar que cambie ataque = true | Solo se verifica cuanddo ataca a otro pokemon
                 if (puedeAtacarlo(uiAtaques.ataqueObjetivo)) { //VERIFICO SI PUEDE ATACAR A LA CRIATURA
@@ -47,9 +45,7 @@ public class BotonReactor {
         return this.criaturaActual.getNombresAtaque()[this.numeroAtaque - 1];
     }
 
-    public String getDetalleAtaque(Criatura c) {
-        return this.criaturaActual.getDetallesAtaque()[this.numeroAtaque - 1];
-    }
+  
 
     public boolean puedeAtacarlo(Criatura otro) {
         switch (this.numeroAtaque) {
