@@ -66,7 +66,7 @@ public class PantallaDuelo extends World {
         turnoTexto.actualizarTexto("Ronda " + ronda + " | Turno " + turno);
 
     }
-
+    
     public void click(Criatura c) {
         //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR NO ESTA MUERTO. QUE ATAQUE
         //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
