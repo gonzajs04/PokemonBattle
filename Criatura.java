@@ -235,7 +235,6 @@ public abstract class Criatura extends Actor {
         Random rd = new Random();
         posibleCritico = rd.nextInt(101); 
         if (ataque.getProbabilidadGolpeCritico() > posibleCritico) { 
-
             golpeCritico = calcularGolpeCritico(daño);
             System.out.println("Se produjo un golpe critico de parte de " + this.getNombre());
         }

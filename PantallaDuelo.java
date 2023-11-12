@@ -32,7 +32,7 @@ public class PantallaDuelo extends World {
     }
 
     private void agregarCriaturas() {
-        criaturas[0] = new Pikachu("Pikachu");
+        criaturas[0] = new Pikachu("Pikachu",false);
         criaturas[1] = new Squirtle("Squirtle", false);
         criaturas[2] = new Charmander("Charmander", true);
         criaturas[3] = new Mewtwo("Mewtwo", true);
@@ -54,7 +54,7 @@ public class PantallaDuelo extends World {
     }
 
     public void turno() {
-        if (turno < criaturasOrdenadasPorVelocidad.length) { // 4 vuelve a estar en pikachu
+        if (turno < 3) { // 4 vuelve a estar en pikachu
             turno++;
             for (int i = 0; i < criaturas.length; i++) {
                 criaturas[i].setVisualSeleccionado(false);
@@ -146,10 +146,11 @@ public class PantallaDuelo extends World {
         int j = 0;
         Criatura aux = null;
         for (i = 0; i < criaturasOrdenadasPorVelocidad.length; i++) {
-            for (j = 0; j < criaturasOrdenadasPorVelocidad.length - 1; j++) {
+            for (j = i; j < criaturasOrdenadasPorVelocidad.length - 1; j++) {
 
                 if (criaturasOrdenadasPorVelocidad[j].getVelocidad() < criaturasOrdenadasPorVelocidad[j + 1]
                         .getVelocidad()) {
+                            
                     aux = criaturasOrdenadasPorVelocidad[j];
                     criaturasOrdenadasPorVelocidad[j] = criaturasOrdenadasPorVelocidad[j + 1];
                     criaturasOrdenadasPorVelocidad[j + 1] = aux;

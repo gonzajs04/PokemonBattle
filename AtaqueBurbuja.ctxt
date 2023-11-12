@@ -2,6 +2,4 @@
 comment0.target=AtaqueBurbuja
 comment1.params=
 comment1.target=AtaqueBurbuja()
-comment2.params=
-comment2.target=int\ turnosSuspendido()
-numComments=3
+numComments=2

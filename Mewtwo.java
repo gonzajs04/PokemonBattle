@@ -6,7 +6,7 @@ public class Mewtwo extends Criatura
     private int ataque = 30;
     private int velocidad= 200;;
     private int defensa = 200;
-        private String[] debilidades = {"Normal","Electricidad"};
+    private String[] debilidades = {"Normal","Electricidad"};
 
     public Mewtwo(String nombre, boolean imagenEspejada) {
         super(nombre, 10, new String[] { "Puño", "- Golpe Aereo -", "- Paralizador -", "- Psicocorte -" }, imagenEspejada,
