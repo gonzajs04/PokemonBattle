@@ -6,6 +6,7 @@ public class PantallaDuelo extends World {
     private UIAtaques uiAtaques;
     private Criatura[] criaturas = new Criatura[4];
     private Criatura[] criaturasOrdenadasPorVelocidad = new Criatura[4];
+
     private int ronda = 0;
     private int turno = 0;
     private int criaturaActualIndex = 0;
@@ -71,18 +72,57 @@ public class PantallaDuelo extends World {
         //SI ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
         //SI NO ESTA CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR ESTA MUERTO. QUE NO ATAQUE
         // SI ESTA NO CLICKEANDO UN ATAQUE Y EL POKEMON QUE SE VA A ATACAR NO ESTA MUERTO. QUE NO ATAQUE
-        if (criaturasOrdenadasPorVelocidad[criaturaActualIndex].esEquipo1()!=c.esEquipo1()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
+        
+
+        if (criaturasOrdenadasPorVelocidad[criaturaActualIndex].esEquipo1()!=c.esEquipo1() && !criaturasOrdenadasPorVelocidad[criaturaActualIndex].getEstaDesmayado()) { // evito que cambie de pokemon si clickea a uno del mismo equipo
             uiAtaques.click(c);
-            criaturaActualIndex = (criaturaActualIndex + 1) % 4; // EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo
-                                             // == NO ES DIVISIBLE POR 4
+             criaturasOrdenadasPorVelocidad = comprobarPokemonesVivos(); // VERIFICO LUEGO DE ATACAR SI HAY ALGUYN POKLKEMON MUERTO
+             
+             //DETERMINO LA POSICION DEL POKEMON QUE LE SIGUE
+            criaturaActualIndex = (criaturaActualIndex + 1) % criaturasOrdenadasPorVelocidad.length; // EJ (3+1)% 4 = 0; ||||||||||||| (0+1)%4 = 1 residuo
+                    
+            
+            // == NO ES DIVISIBLE POR 4
+            
+            //ASIGNO A LA CRIATURA
             uiAtaques.asignarCriaturaActual(criaturasOrdenadasPorVelocidad[criaturaActualIndex]);
-            criaturasOrdenadasPorVelocidad[criaturaActualIndex].setEstaPorAtacar(false);
+
             turno();
+           
         }
-                    verificarSiHayGanador();
+            verificarSiHayGanador();
 
 
     }
+    
+    public Criatura[] comprobarPokemonesVivos(){
+        Criatura[] criaturasVivas = null;
+        int vivos = 0;
+  
+        for(int i=0; i<criaturasOrdenadasPorVelocidad.length;i++){
+            if(criaturasOrdenadasPorVelocidad[i].getVida()>0){
+                vivos++;
+            }
+        }
+    
+        criaturasVivas = retornarPokemonesVivos(vivos,criaturasVivas); //LLAMO A LA FUNCION PARA DEVOLVER UN ARRAY CON LOS POKEMONES VIVOS
+        return criaturasVivas;
+    }
+    
+    public Criatura[] retornarPokemonesVivos(int vivos, Criatura[] criaturasVivas){
+        int index = 0;
+        criaturasVivas = new Criatura[vivos];
+        for(int i=0; i<criaturasOrdenadasPorVelocidad.length;i++){ //RECORRO TODO EL ARRAY DE POKEMMONES PARA VERIFICAR LOS QUE TIENEN VIDA >0
+              if(criaturasOrdenadasPorVelocidad[i].getVida()>0){
+                  
+                  // GUARDO EN UN INDICE ALTERNATIVO PARA QUE NO SOBREPASE EL TAMAÑO DEL ARRAY. ASIGNO EL POKEMON CORRESPONDIENTE A ESE INDICE
+                  criaturasVivas[index] = criaturasOrdenadasPorVelocidad[i]; 
+                  index++; //SUMO EL INDICE ALTERNATIVO
+            }
+        }
+        return criaturasVivas; //RETORNO EL ARRAY
+    }
+
 
     public void verificarSiHayGanador() {
         System.out.println("LA RE CONCHA DE TU MADRE" + Criatura.getContadorEquipo1());
