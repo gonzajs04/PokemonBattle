@@ -1,7 +1,7 @@
 #Greenfoot project file
 class.Charmander.image=Charmander.png
 class.Mewtwo.image=Mewtwo.png
-class.PantallaDuelo.image=fondo2.png
+class.PantallaDuelo.image=fondo22.png
 class.PantallaGanador.image=PantallaVictoria.png
 class.Pikachu.image=Pikachu.png
 class.Squirtle.image=Squirtle.png
@@ -133,7 +133,7 @@ editor.fx.0.height=1056
 editor.fx.0.width=1936
 editor.fx.0.x=-8
 editor.fx.0.y=-8
-height=744
+height=1056
 package.numDependencies=41
 package.numTargets=31
 project.charset=UTF-8
@@ -368,7 +368,7 @@ target9.width=120
 target9.x=0
 target9.y=0
 version=3.0.0
-width=1382
+width=1936
 world.lastInstantiated=TitleScreen
 xPosition=0
-yPosition=143
+yPosition=0

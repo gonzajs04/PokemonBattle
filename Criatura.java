@@ -48,7 +48,6 @@ public abstract class Criatura extends Actor {
         crearArrayDeAtaques();
     }
 
-
     @Override
     protected void addedToWorld(World world) {
         render();
@@ -89,10 +88,11 @@ public abstract class Criatura extends Actor {
     public void setDefensa(int defensa) {
         this.defensa = defensa;
     }
-    
-     public void setEstaPorAtacar(boolean estaPorAtacar){
+
+    public void setEstaPorAtacar(boolean estaPorAtacar){
         this.estaPorAtacar  = estaPorAtacar;
-        }
+    }
+
     public boolean estaPorAtacar(){
         return estaPorAtacar;
     }
@@ -169,20 +169,18 @@ public abstract class Criatura extends Actor {
 
         if (!this.estaDesmayado && !otro.estaDesmayado && !this.estaParalizado) {
             if( paralizaOQuitaDaño(ataque) ){ 
-                this.randomParalizador = new Random();
-                int random = this.randomParalizador.nextInt(2)+1; 
 
                 otro.setEstaParalizado(true);
                 ataque.setSeHizoUso(true); 
-                System.out.println("El ataque paralizador ya no tendra efecto de ahora en mas");
+                System.out.println("El ataque paralizador ya no hara nada de ahora en mas");
 
                 generarImagen(otro,otro.imagenPokemonParalizado); 
 
             }else{ 
                 realizarAtaqueDaño(otro,ataque);
-
+                verificarPosibilidadDesmayo(otro); 
             }
-            verificarPosibilidadDesmayo(otro); 
+
             otro.uiInfoCriatura.actualizar(); 
 
         }
@@ -193,7 +191,7 @@ public abstract class Criatura extends Actor {
         Random rand = new Random();
         double numeroAleatorio = 0.5 + rand.nextDouble() * (1.25 - 0.5);
 
-        double factor = verificarFactorCriatura(otro, ataque);
+        double factor = verificarFactorCriaturaEnemiga(otro, ataque);
 
         double daño = 2 * (1 + (this.ataqueAtributo / otro.getDefensa()) * factor * numeroAleatorio); 
         double dañoGolpeCritico = verificarGolpeCritico(daño, ataque); 
@@ -254,19 +252,21 @@ public abstract class Criatura extends Actor {
         c.imagenOriginal.scale(130,130);
     }
 
-    public double verificarFactorCriatura(Criatura oponente, Ataque ataque) {
+    public double verificarFactorCriaturaEnemiga(Criatura oponente, Ataque ataque) {
         double factor = 1; 
         for (int i = 0; i < oponente.getDebilidades().length; i++) {
             if (oponente.getDebilidades()[i] == ataque.getTipo()) { 
                 System.out.println("El pokemon que estas atacando tiene una debilidad hacia el ataque: "
                     + ataque.getTipo() + " , el daño sera de 1.25 mayor");
                 factor = 1.25;
-            } else if (oponente.getTipo() == ataque.getTipo()) {  
-                System.out.println("El pokemon que estas atacando tiene una resistencia hacia el ataque: "
-                    + ataque.getTipo() + " , el daño sera de 0.75 mayor");
+            } 
+        }
 
-                factor = 0.75;
-            }
+        if (oponente.getTipo() == ataque.getTipo()) {  
+            System.out.println("El pokemon que estas atacando tiene una resistencia hacia el ataque: "
+                + ataque.getTipo() + " , el daño sera de 0.75 mayor");
+
+            factor = 0.75;
         }
 
         return factor;
@@ -314,7 +314,6 @@ public abstract class Criatura extends Actor {
         return this.defensa;
     }
 
- 
 
     public void setDebilidades(String[] debilidades) {
         this.debilidades = debilidades; 

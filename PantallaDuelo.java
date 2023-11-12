@@ -23,8 +23,8 @@ public class PantallaDuelo extends World {
         uiAtaques = new UIAtaques(criaturas);
         addObject(uiAtaques, 350, 300);
 
-        GreenfootImage imagenFondo = new GreenfootImage("fondo2.png"); // SE CAMBIA EL FONDO
-        getBackground().drawImage(imagenFondo, 0, 0);
+        GreenfootImage imagenFondo = new GreenfootImage("fondo22.png"); // SE CAMBIA EL FONDO
+        getBackground().drawImage(imagenFondo,0, 0);
 
         uiAtaques.asignarCriaturaActual(criaturas[criaturaActualIndex]);
         crearCriaturasParaOrdenarPorVelocidad();
@@ -45,6 +45,7 @@ public class PantallaDuelo extends World {
 
     private void  ronda() {
         ronda++;
+        System.out.println("Ronda "+ronda);
 
     }
 

@@ -6,12 +6,12 @@ public class Mewtwo extends Criatura
     private int ataque = 30;
     private int velocidad= 200;;
     private int defensa = 200;
-        private String[] debilidades = {"Normal","Rayo"};
+        private String[] debilidades = {"Normal","Electricidad"};
 
     public Mewtwo(String nombre, boolean imagenEspejada) {
         super(nombre, 10, new String[] { "Puño", "- Golpe Aereo -", "- Paralizador -", "- Psicocorte -" }, imagenEspejada,
                 new String[] { "Causa un daño moderado a un enemigo", "Realiza una patada voladora y golpea en la cabeza con alta probabilidad de golpe critico", "Paraliza al enemigo, solo se puede utilizar 1 vez ",
-                "Quita entre 20-30 de daño con un 10% de golpe critico " },4,"Mistico","mewtwo-muerto.png","mewtwo-paralizado.png");
+                "90 porciento de probabilidad de golpe critico " },4,"Mistico","mewtwo-muerto.png","mewtwo-paralizado.png");
         super.setDefensa(this.defensa);
         super.setVelocidad(this.velocidad);
         super.setAtaqueAtributo(this.ataque);

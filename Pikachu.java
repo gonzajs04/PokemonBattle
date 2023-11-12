@@ -6,8 +6,8 @@ public class Pikachu extends Criatura {
     private String [] debilidades = {"Normal","Fuego"};
     public Pikachu(String nombre, boolean imagenEspejada) {
         super(nombre, 10, new String[] { "Puño", "- Rayo -", "- Placaje -", "- Furia de rayo -" }, imagenEspejada,
-        new String[] { "Causa un daño moderado a un enemigo", "80% de probabilidad de golpe critico", "Quita 5% de daño con un 85% de golpe critico",
-        "80% de probabilidad de golpe critico" },4,"Electricidad","pikachu-muerto.png","pikachu-paralizado.png");
+        new String[] { "Causa un daño moderado a un enemigo", "50% de probabilidad de golpe critico", "Quita 5% de daño con un 85% de golpe critico",
+        "90% de probabilidad de golpe critico" },4,"Electricidad","pikachu-muerto.png","pikachu-paralizado.png");
         super.setDefensa(this.defensa);//LE ASIGNO EL ATRIBUTO DEFENSA EN LA CLASE CRIATURA
         super.setVelocidad(this.velocidad);//LE ASIGNO EL ATRIBUTO VELOCIDAD EN LA CLASE CRIATURA
         super.setAtaqueAtributo(this.ataque); //LE ASIGNO EL ATRIBUTO ATAQUE EN LA CLASE CRIATURA
